@@ -8,17 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		D306F5D82ACBA165009EF5AB /* LetsCodeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D306F5D72ACBA165009EF5AB /* LetsCodeApp.swift */; };
-		D306F5DA2ACBA165009EF5AB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D306F5D92ACBA165009EF5AB /* ContentView.swift */; };
+		D306F5DA2ACBA165009EF5AB /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D306F5D92ACBA165009EF5AB /* HomeView.swift */; };
 		D306F5DC2ACBA167009EF5AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D306F5DB2ACBA167009EF5AB /* Assets.xcassets */; };
 		D306F5DF2ACBA167009EF5AB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D306F5DE2ACBA167009EF5AB /* Preview Assets.xcassets */; };
+		D39021672ACE181A00C71494 /* ContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39021662ACE181A00C71494 /* ContentModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		D306F5D42ACBA165009EF5AB /* LetsCode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LetsCode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D306F5D72ACBA165009EF5AB /* LetsCodeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetsCodeApp.swift; sourceTree = "<group>"; };
-		D306F5D92ACBA165009EF5AB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D306F5D92ACBA165009EF5AB /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		D306F5DB2ACBA167009EF5AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D306F5DE2ACBA167009EF5AB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D39021662ACE181A00C71494 /* ContentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,7 +54,11 @@
 			isa = PBXGroup;
 			children = (
 				D306F5D72ACBA165009EF5AB /* LetsCodeApp.swift */,
-				D306F5D92ACBA165009EF5AB /* ContentView.swift */,
+				D390215F2ACE169600C71494 /* Views */,
+				D39021602ACE16AE00C71494 /* ViewModels */,
+				D39021622ACE173700C71494 /* Models */,
+				D39021632ACE175200C71494 /* Resources */,
+				D39021642ACE176700C71494 /* Helpers */,
 				D306F5DB2ACBA167009EF5AB /* Assets.xcassets */,
 				D306F5DD2ACBA167009EF5AB /* Preview Content */,
 			);
@@ -65,6 +71,51 @@
 				D306F5DE2ACBA167009EF5AB /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D390215F2ACE169600C71494 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D39021652ACE17D700C71494 /* Home */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D39021602ACE16AE00C71494 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				D39021662ACE181A00C71494 /* ContentModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		D39021622ACE173700C71494 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D39021632ACE175200C71494 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		D39021642ACE176700C71494 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		D39021652ACE17D700C71494 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				D306F5D92ACBA165009EF5AB /* HomeView.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +188,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D306F5DA2ACBA165009EF5AB /* ContentView.swift in Sources */,
+				D306F5DA2ACBA165009EF5AB /* HomeView.swift in Sources */,
 				D306F5D82ACBA165009EF5AB /* LetsCodeApp.swift in Sources */,
+				D39021672ACE181A00C71494 /* ContentModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
