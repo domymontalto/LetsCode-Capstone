@@ -1,0 +1,62 @@
+[
+    {
+        "id": 0,
+        "category": "Java",
+        "content": {
+            "id": 0,
+            "image": "Java",
+            "time": "2 hours",
+            "description": "Learn the basics of Java, one of the most popular programming languages.",
+            "totLessons": 2,
+            "lessons": [
+                {
+                    "id": 0,
+                    "title": "Variables",
+                    "video": "",
+                    "duration": "3 minutes",
+                    "explanation": "Variables serve as containers for storing and managing data, making them a fundamental concept to grasp before delving deeper into Java development.",
+                    "difficulty": "Easy"
+                },
+                {
+                    "id": 1,
+                    "title": "Primitive Types",
+                    "video": "",
+                    "duration": "5 minutes",
+                    "explanation": "Data types define the kind of values a variable can hold and are essential knowledge for anyone starting their journey in Java development.",
+                    "difficulty": "Easy"
+                }
+            ]
+        },
+        "test": {
+            "id": 0,
+            "image": "JavaTest",
+            "time": "30 minutes",
+            "totQuestions": 2,
+            "description": "Evaluate your fundamental knowledge of the Java programming language.",
+            "questions": [
+                {
+                    "id": 0,
+                    "content": "What is a variable in Java?",
+                    "correctIndex": 3,
+                    "answers": [
+                        "A method that performs a specific task.",
+                        "A data structure used for storing multiple values.",
+                        "A reserved word used to define a constant value.",
+                        "A named container for storing data that can change during program execution."
+                    ]
+                },
+                {
+                    "id": 1,
+                    "content": "Which primitive data type in Java can contain whole numbers?",
+                    "correctIndex": 2,
+                    "answers": [
+                        "char",
+                        "double",
+                        "int",
+                        "float"
+                    ]
+                }
+            ]
+        }
+    }
+]
