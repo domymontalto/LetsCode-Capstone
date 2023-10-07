@@ -13,87 +13,39 @@ struct HomeView: View {
     
     
     var body: some View {
-
-        ScrollView {
+        
+        NavigationView {
             
-            LazyVStack {
+            VStack(alignment: .leading) {
                 
-                ForEach(model.modules) { module in
-                    
-                    //Learning Card
-                    
-                    ZStack {
+                Text("What do you want to do today?")
+                    .padding(.leading, 20)
+                
+                ScrollView {
+                    LazyVStack {
                         
-                        Rectangle()
-                            .foregroundColor(.white)
-                            .cornerRadius(10)
-                            .shadow(radius: 5)
-                            .aspectRatio(CGSize(width: 335, height: 175), contentMode: .fit)
-                        
-                        HStack {
+                        ForEach(model.modules) { module in
                             
-                            //Image
-                            Image(module.category)
-                                .resizable()
-                                .frame(width: 116, height: 116)
-                                .clipShape(Circle())
-                            
-                            Spacer()
-                            
-                            //Text
-                            VStack(alignment: .leading, spacing: 10) {
+                            VStack(spacing: 20) {
                                 
-                                //HeadLine
-                                Text("Learn \(module.category)")
-                                    .fontWeight(.bold)
+                                //Learning Card
+                                HomeViewRow(image: module.content.image, title: "Learn \(module.category)", description: module.content.description, count: "\(module.content.totLessons) Lessons ", time: module.content.time)
                                 
-                                //Description
-                                Text(module.content.description)
-                                    .font(.caption)
-                                    .padding(.bottom, 20)
-                                
-                                
-                                //Icons
-                                HStack {
-                                    
-                                    //Number of lessons/questions
-                                    Image(systemName: "text.book.closed")
-                                        .resizable()
-                                        .frame(width: 15, height: 15)
-                                    
-                                    Text("\(module.content.totLessons) Lessons")
-                                        .font(Font.system(size: 10))
-                                    
-                                    Spacer()
-                                    
-                                    //Time
-                                    
-                                    Image(systemName: "clock")
-                                        .resizable()
-                                        .frame(width: 15, height: 15)
-                                    
-                                    
-                                    
-                                    Text("\(module.content.time)")
-                                        .font(Font.system(size: 10))
-                                    
-                                }
-                                
+                                //Test Card
+                                HomeViewRow(image: module.test.image, title: "\(module.category) Test", description: module.test.description, count: "\(module.test.totQuestions) Lessons ", time: module.test.time)
                             }
-                            .padding(.leading)
-                            
                             
                         }
-                        .padding(.horizontal, 20)
                     }
-                    
-                    
-                    //Test Card
-                    
+                    .padding()
                 }
+                
+                
             }
-            .padding()
+            .navigationTitle("Get Started")
         }
+
+        
     }
 }
 
