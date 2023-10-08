@@ -11,10 +11,15 @@ class ContentModel : ObservableObject {
     
     @Published var modules = [Module]()
     
+    @Published var currentModule: Module?
+    @Published var currentModuleIndex = 0
+    
     init() {
         
         getLocalData()
     }
+    
+    //MARK: - Data Methods
     
     func getLocalData() {
         
@@ -40,6 +45,25 @@ class ContentModel : ObservableObject {
         }
         
     }
+    
+    //MARK: - Lesson navigation methods
+    
+    func beginModule(_ moduleid: Int) {
+        
+        for index in 0..<modules.count {
+            
+            if modules[index].id == index {
+                
+                currentModuleIndex = index
+                break
+            }
+            
+        }
+        
+        currentModule = modules[currentModuleIndex]
+        
+    }
+    
     
     
     

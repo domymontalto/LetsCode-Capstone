@@ -28,15 +28,33 @@ struct HomeView: View {
                             
                             VStack(spacing: 20) {
                                 
-                                //Learning Card
-                                HomeViewRow(image: module.content.image, title: "Learn \(module.category)", description: module.content.description, count: "\(module.content.totLessons) Lessons ", time: module.content.time)
-                                
-                                //Test Card
-                                HomeViewRow(image: module.test.image, title: "\(module.category) Test", description: module.test.description, count: "\(module.test.totQuestions) Lessons ", time: module.test.time)
+                                NavigationLink {
+                                    
+                                    ContentView()
+                                        .onAppear(perform: {
+                                            model.beginModule(module.id)
+                                        })
+                                    
+                                } label: {
+                                    //Learning Card
+                                    HomeViewRow(image: module.content.image, title: "Learn \(module.category)", description: module.content.description, count: "\(module.content.totLessons) Lessons ", time: module.content.time)
+                                }
+
+                                NavigationLink {
+                                    
+                                    
+                                    
+                                } label: {
+                                    
+                                    //Test Card
+                                    HomeViewRow(image: module.test.image, title: "\(module.category) Test", description: module.test.description, count: "\(module.test.totQuestions) Lessons ", time: module.test.time)
+                                }
+
                             }
                             
                         }
                     }
+                    .buttonStyle(.plain)
                     .padding()
                 }
                 
