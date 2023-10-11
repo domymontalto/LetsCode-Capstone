@@ -12,7 +12,7 @@
                 {
                     "id": 0,
                     "title": "Variables",
-                    "video": "",
+                    "video": "Java_Variables.mp4",
                     "duration": "3 Minutes",
                     "explanation": "Variables serve as containers for storing and managing data, making them a fundamental concept to grasp before delving deeper into Java development.",
                     "difficulty": "Easy"
