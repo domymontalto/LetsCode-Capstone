@@ -27,6 +27,7 @@ struct ContentDetailView: View {
             }
             
             //Description
+            CodeTextView()
             
             //Show next lesson button, only if there is a next lesson
             
@@ -60,6 +61,8 @@ struct ContentDetailView: View {
 
             
         }
+        .navigationTitle(lesson?.title ?? "")
+        .navigationBarTitleDisplayMode(.inline)
         .padding()
         
     }

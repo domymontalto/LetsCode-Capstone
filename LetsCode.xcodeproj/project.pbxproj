@@ -24,6 +24,8 @@
 		D3E444782AD5BA1D001643A6 /* ContentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E444772AD5BA1D001643A6 /* ContentDetailView.swift */; };
 		D3E4447B2AD5C0E6001643A6 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3E4447A2AD5C0E6001643A6 /* AVKit.framework */; };
 		D3E4447D2AD5C21B001643A6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4447C2AD5C21B001643A6 /* Constants.swift */; };
+		D3E4447F2AD7663E001643A6 /* CodeTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4447E2AD7663E001643A6 /* CodeTextView.swift */; };
+		D3E444822AD76B4F001643A6 /* style.html in Resources */ = {isa = PBXBuildFile; fileRef = D3E444812AD76B4F001643A6 /* style.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,8 @@
 		D3E444772AD5BA1D001643A6 /* ContentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDetailView.swift; sourceTree = "<group>"; };
 		D3E4447A2AD5C0E6001643A6 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		D3E4447C2AD5C21B001643A6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D3E4447E2AD7663E001643A6 /* CodeTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeTextView.swift; sourceTree = "<group>"; };
+		D3E444812AD76B4F001643A6 /* style.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = style.html; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +106,7 @@
 		D390215F2ACE169600C71494 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D3E444802AD7691B001643A6 /* Common */,
 				D3AB56F12AD1BE7D00FA2DDF /* Lesson */,
 				D39021652ACE17D700C71494 /* Home */,
 			);
@@ -133,6 +138,7 @@
 			children = (
 				D39021742ACE269400C71494 /* data.json */,
 				D3E4447C2AD5C21B001643A6 /* Constants.swift */,
+				D3E444812AD76B4F001643A6 /* style.html */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -169,6 +175,14 @@
 				D3E4447A2AD5C0E6001643A6 /* AVKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D3E444802AD7691B001643A6 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				D3E4447E2AD7663E001643A6 /* CodeTextView.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,6 +245,7 @@
 			files = (
 				D306F5DF2ACBA167009EF5AB /* Preview Assets.xcassets in Resources */,
 				D39021752ACE269400C71494 /* data.json in Resources */,
+				D3E444822AD76B4F001643A6 /* style.html in Resources */,
 				D306F5DC2ACBA167009EF5AB /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -246,6 +261,7 @@
 				D306F5DA2ACBA165009EF5AB /* HomeView.swift in Sources */,
 				D30FFC6D2AD0A271002E764D /* HomeViewRow.swift in Sources */,
 				D39021732ACE20BF00C71494 /* Question.swift in Sources */,
+				D3E4447F2AD7663E001643A6 /* CodeTextView.swift in Sources */,
 				D390216B2ACE202400C71494 /* Module.swift in Sources */,
 				D306F5D82ACBA165009EF5AB /* LetsCodeApp.swift in Sources */,
 				D39021712ACE20AB00C71494 /* Test.swift in Sources */,
