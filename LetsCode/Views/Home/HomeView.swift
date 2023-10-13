@@ -28,28 +28,31 @@ struct HomeView: View {
                             
                             VStack(spacing: 20) {
                                 
-                                NavigationLink {
+                                NavigationLink(
                                     
-                                    ContentView()
+                                    destination:
+                                        ContentView()
                                         .onAppear(perform: {
                                             model.beginModule(module.id)
-                                        })
-                                    
-                                } label: {
-                                    //Learning Card
-                                    HomeViewRow(image: module.content.image, title: "Learn \(module.category)", description: module.content.description, count: "\(module.content.totLessons) Lessons ", time: module.content.time)
-                                }
-
+                                        }),
+                                    tag: module.id,
+                                    selection: $model.currentContentSelected,
+                                    label: {
+                                        
+                                        //Learning Card
+                                        HomeViewRow(image: module.content.image, title: "Learn \(module.category)", description: module.content.description, count: "\(module.content.totLessons) Lessons ", time: module.content.time)
+                                    })
+                                
+                                
+                                
                                 NavigationLink {
-                                    
-                                    
                                     
                                 } label: {
                                     
                                     //Test Card
                                     HomeViewRow(image: module.test.image, title: "\(module.category) Test", description: module.test.description, count: "\(module.test.totQuestions) Lessons ", time: module.test.time)
                                 }
-
+                                
                             }
                             
                         }
@@ -63,7 +66,7 @@ struct HomeView: View {
             .navigationTitle("Get Started")
         }
         .navigationViewStyle(.stack)
-
+        
         
     }
 }

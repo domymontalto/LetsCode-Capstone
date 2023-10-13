@@ -26,6 +26,7 @@
 		D3E4447D2AD5C21B001643A6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4447C2AD5C21B001643A6 /* Constants.swift */; };
 		D3E4447F2AD7663E001643A6 /* CodeTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4447E2AD7663E001643A6 /* CodeTextView.swift */; };
 		D3E444822AD76B4F001643A6 /* style.html in Resources */ = {isa = PBXBuildFile; fileRef = D3E444812AD76B4F001643A6 /* style.html */; };
+		D3E444842AD8BC91001643A6 /* RectangleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E444832AD8BC91001643A6 /* RectangleCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		D3E4447C2AD5C21B001643A6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D3E4447E2AD7663E001643A6 /* CodeTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeTextView.swift; sourceTree = "<group>"; };
 		D3E444812AD76B4F001643A6 /* style.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = style.html; sourceTree = "<group>"; };
+		D3E444832AD8BC91001643A6 /* RectangleCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				D3E4447E2AD7663E001643A6 /* CodeTextView.swift */,
+				D3E444832AD8BC91001643A6 /* RectangleCard.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 				D3AB56F52AD1CB1100FA2DDF /* ContentViewRow.swift in Sources */,
 				D306F5DA2ACBA165009EF5AB /* HomeView.swift in Sources */,
 				D30FFC6D2AD0A271002E764D /* HomeViewRow.swift in Sources */,
+				D3E444842AD8BC91001643A6 /* RectangleCard.swift in Sources */,
 				D39021732ACE20BF00C71494 /* Question.swift in Sources */,
 				D3E4447F2AD7663E001643A6 /* CodeTextView.swift in Sources */,
 				D390216B2ACE202400C71494 /* Module.swift in Sources */,
