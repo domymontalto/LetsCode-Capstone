@@ -124,7 +124,7 @@ class ContentModel : ObservableObject {
         currentLessonIndex += 1
         
         //Check tha it is within range
-        if currentLessonIndex < currentModule!.content.lessons.count{
+        if currentLessonIndex < currentModule!.content.totLessons{
             
             //Set the current lesson property
             currentLesson = currentModule!.content.lessons[currentLessonIndex]
@@ -136,6 +136,27 @@ class ContentModel : ObservableObject {
             //Reset the lesson state
             currentLessonIndex = 0
             currentLesson = nil
+            
+        }
+        
+    }
+    
+    func nextQuestion() {
+        
+        //Advance the question index
+        currentQuestionIndex += 1
+        
+        //Check that it's within the range
+        if currentQuestionIndex < currentModule!.test.totQuestions {
+            
+            currentQuestion = currentModule!.test.questions[currentQuestionIndex]
+            codeText = addStyling(currentQuestion!.content)
+
+        } else {
+            
+            //If not, then reset the properties
+            currentQuestionIndex = 0
+            currentQuestion = nil
             
         }
         
