@@ -129,6 +129,7 @@ class ContentModel : ObservableObject {
             //Set the current lesson property
             currentLesson = currentModule!.content.lessons[currentLessonIndex]
             
+            //Adds the lesson description
             codeText = addStyling(currentLesson!.explanation)
             
         } else {
@@ -163,6 +164,10 @@ class ContentModel : ObservableObject {
     }
     
     func hasNextLesson() -> Bool {
+        
+        guard currentModule != nil else {
+            return false
+        }
         
         if currentLessonIndex + 1 < currentModule!.content.lessons.count {
             
