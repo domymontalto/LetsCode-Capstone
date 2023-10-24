@@ -9,8 +9,8 @@ import Foundation
 
 struct Module: Decodable, Identifiable {
     
-    var id: Int
-    var category: String
-    var content: Content
-    var test: Test
+    var id: String = ""
+    var category: String = ""
+    var content: Content = Content()
+    var test: Test = Test()
 }

@@ -20,7 +20,7 @@
                 {
                     "id": 1,
                     "title": "Primitive Types",
-                    "video": "",
+                    "video": "Java_Primitive_Types.mp4",
                     "duration": "5 Minutes",
                     "explanation": "Data types define the kind of values a variable can hold and are essential knowledge for anyone starting their journey in Java development.",
                     "difficulty": "Easy"

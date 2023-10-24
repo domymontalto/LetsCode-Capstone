@@ -9,8 +9,8 @@ import Foundation
 
 struct Question: Decodable, Identifiable {
     
-    var id: Int
-    var content: String
-    var correctIndex: Int
-    var answers: [String]
+    var id: String = ""
+    var content: String = ""
+    var correctIndex: Int = 0
+    var answers: [String] = [String]()
 }

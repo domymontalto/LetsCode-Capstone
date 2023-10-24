@@ -21,7 +21,7 @@ struct ContentViewRow: View {
             
         } else {
             
-            return Lesson(id: 0, title: "", video: "", duration: "", explanation: "", difficulty: "")
+            return Lesson(id: "", title: "", video: "", duration: "", explanation: "", difficulty: "")
         }
     }
     
