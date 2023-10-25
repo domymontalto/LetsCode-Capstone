@@ -42,12 +42,12 @@ class ContentModel : ObservableObject {
         getLocalStyles()
         
         //Get database modules
-        getDatabaseModules()
+        getModules()
     }
     
     //MARK: - Data Methods
     
-    func getDatabaseModules() {
+    func getModules() {
         
         //Specify path
         let collection = db.collection("modules")
@@ -104,6 +104,112 @@ class ContentModel : ObservableObject {
                 
             }
             
+            
+        }
+        
+        
+    }
+    
+    func getLessons(_ module: Module, completion: @escaping () -> Void) {
+        
+        //Specify path
+        let collection = db.collection("modules").document(module.id).collection("lessons")
+        
+        //Get documents
+        collection.getDocuments { snapshot, error in
+            
+            if error == nil && snapshot != nil {
+                
+                var lessons = [Lesson]()
+                
+                //Loop through the documents and build array of lessons
+                for doc in snapshot!.documents {
+                    
+                    //New lesson
+                    var l = Lesson()
+                    
+                    l.id = doc["id"] as? String ?? UUID().uuidString
+                    l.difficulty = doc["difficulty"] as? String ?? ""
+                    l.duration = doc["duration"] as? String ?? ""
+                    l.explanation = doc["explanation"] as? String ?? ""
+                    l.title = doc["title"] as? String ?? ""
+                    l.video = doc["video"] as? String ?? ""
+                    
+                    //Add the lesson to the array
+                    lessons.append(l)
+                    
+                }
+                
+                //Setting the lessons to the module
+                //Loopt through published modules array and find the one that matches the id of the copy that got passed in
+                for (index, m) in self.modules.enumerated() {
+                    
+                    //Find the module we want
+                    if m.id == module.id {
+                        
+                        //Set the lessons
+                        self.modules[index].content.lessons = lessons
+                        
+                        //Call the complition closure
+                        completion()
+                        
+                    }
+                    
+                }
+                
+            }
+            
+        }
+    }
+    
+    
+    
+    func getQuestions(_ module: Module, completion: @escaping () -> Void) {
+        
+        //Specific path
+        let collection = db.collection("modules").document(module.id).collection("questions")
+        
+        //Get documents
+        collection.getDocuments{ snapshot,  error in
+                        
+            if error == nil && snapshot != nil {
+                
+                //Array to track questions
+                var questions = [Question]()
+                
+                //Loop though the documents and build an array of questions
+                for doc in snapshot!.documents {
+                    
+                    //New question
+                    var q = Question()
+                    
+                    q.id = doc["id"] as? String ?? UUID().uuidString
+                    q.answers = doc["answers"] as? [String] ?? [String]()
+                    q.content = doc["content"] as? String ?? ""
+                    q.correctIndex = doc["correctIndex"] as? Int ?? 0
+                    
+                    //Add the question to the array
+                    questions.append(q)
+                }
+                
+                //Setting the questions to the module
+                //Loopt through published modules array and find the one that matches the id of the copy that got passed in
+                for (index, m) in self.modules.enumerated() {
+                    
+                    //Find the module we want
+                    if m.id == module.id {
+                        
+                        //Set the questions
+                        self.modules[index].test.questions = questions
+                        
+                        //Call the completion closure
+                        completion()
+                        
+                    }
+                    
+                }
+                
+            }
             
         }
         
@@ -203,7 +309,7 @@ class ContentModel : ObservableObject {
             
             currentQuestion = currentModule!.test.questions[currentQuestionIndex]
             codeText = addStyling(currentQuestion!.content)
-
+            
         } else {
             
             //If not, then reset the properties
@@ -271,8 +377,8 @@ class ContentModel : ObservableObject {
         // Convert to attributed string
         do {
             let attributedString = try NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
-                
-                resultString = attributedString
+            
+            resultString = attributedString
             
         }
         catch {
