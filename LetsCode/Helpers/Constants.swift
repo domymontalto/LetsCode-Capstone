@@ -11,4 +11,10 @@ struct Constants {
     
     static var videoHostUrl = "https://domymontalto.github.io/video/"
     
+    enum LoginMode {
+        
+        case login
+        case createAccount
+    }
+    
 }

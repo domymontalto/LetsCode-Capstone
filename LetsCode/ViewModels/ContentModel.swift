@@ -7,9 +7,13 @@
 
 import Foundation
 import Firebase
+import FirebaseAuth
 
 class ContentModel : ObservableObject {
     
+    //Authentication
+    @Published var loggedIn = false
+
     let db = Firestore.firestore()
     
     //List of Module
@@ -35,19 +39,32 @@ class ContentModel : ObservableObject {
     @Published var currentContentSelected:Int?
     @Published var currentTestSelected:Int?
     
+    
     init() {
         
-        
-        //Parse local style.html
-        getLocalStyles()
-        
         //Get database modules
-        getModules()
+        //getModules()
     }
+    
+    //MARK: - Authentication methods
+    
+    func checkLogin() {
+        
+        //Check if there's a current user to determine logged in status
+        //loggedIn = Auth.auth().currentUser != nil ? true : false
+        loggedIn = false
+        
+        
+    }
+    
     
     //MARK: - Data Methods
     
+    
     func getModules() {
+                
+        //Parse local style.html
+        getLocalStyles()
         
         //Specify path
         let collection = db.collection("modules")
