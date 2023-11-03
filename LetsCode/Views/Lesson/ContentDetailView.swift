@@ -55,9 +55,13 @@ struct ContentDetailView: View {
                 
             }
             else {
+                
                 //Show the complete button instead
                 
                 Button {
+                    
+                    //Advance the lesson
+                    model.nextLesson()
                     
                     //Take user back to the HomeView
                     model.currentContentSelected = nil

@@ -64,6 +64,32 @@ class ContentModel : ObservableObject {
     
     //MARK: - Data Methods
     
+    func saveData(writeToDatabase:Bool = false) {
+        
+        if let loggedInUser = Auth.auth().currentUser {
+            
+            //Save the progress data locally
+            let user = UserService.shared.user
+            
+            user.lastModule = currentModuleIndex
+            user.lastLesson = currentLessonIndex
+            user.lastQuestion = currentQuestionIndex
+            
+            if writeToDatabase {
+                
+                //Save the progress to the database
+                let db = Firestore.firestore()
+                let ref = db.collection("users").document(loggedInUser.uid)
+                
+                ref.setData(["lastModule": user.lastModule ?? NSNull(),
+                             "lastLesson": user.lastLesson ?? NSNull(),
+                             "lastQuestion": user.lastQuestion ?? NSNull()],merge: true)
+            }
+            
+        }
+        
+    }
+    
     func getUserData() {
         
         //Check that there's a logged in user
@@ -345,9 +371,10 @@ class ContentModel : ObservableObject {
             //Reset the lesson state
             currentLessonIndex = 0
             currentLesson = nil
-            
         }
         
+        //Save the progress
+        saveData()
     }
     
     func nextQuestion() {
@@ -366,9 +393,10 @@ class ContentModel : ObservableObject {
             //If not, then reset the properties
             currentQuestionIndex = 0
             currentQuestion = nil
-            
         }
         
+        //Save the progress
+        saveData()
     }
     
     func hasNextLesson() -> Bool {

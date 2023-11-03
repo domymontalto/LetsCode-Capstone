@@ -13,6 +13,7 @@ struct TestView: View {
     @State var selectedAnswerIndex:Int?
     @State var numCorrect = 0
     @State var submitted = false
+    @State var showResults = false
     
     var body: some View {
         
@@ -42,7 +43,7 @@ struct TestView: View {
         }
         
         
-        if model.currentQuestion != nil {
+        if model.currentQuestion != nil && showResults == false {
             
             VStack(alignment: .leading) {
                 
@@ -130,13 +131,23 @@ struct TestView: View {
                     //Check if answer has been submitted
                     if submitted == true {
                         
-                        //Answer has already been submitted, move to next question
-                        model.nextQuestion()
-                        
-                        //Reset properties
-                        submitted = false
-                        selectedAnswerIndex = nil
-                        
+                        //Check if it was the last question
+                        if model.currentQuestionIndex + 1 == model.currentModule!.test.totQuestions {
+                            
+                            //Check next question and save progress
+                            model.nextQuestion()
+                            
+                            showResults = true
+
+                        } else {
+                            
+                            //Answer has already been submitted, move to next question, saving progress
+                            model.nextQuestion()
+                            
+                            //Reset properties
+                            submitted = false
+                            selectedAnswerIndex = nil
+                        }
                     }
                     else {
                         //Submit the answer
@@ -176,13 +187,14 @@ struct TestView: View {
             }
             .navigationTitle("\(model.currentModule?.category ?? "") Test")
 
-        } else {
+        } else if showResults == true {
             
             //If current question is nil, we show ther result view
             TestResultView(numCorrect: numCorrect)
+        } else {
             
+            ProgressView()
         }
-        
     }
 }
 
