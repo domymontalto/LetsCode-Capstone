@@ -10,6 +10,7 @@ import SwiftUI
 struct TestView: View {
     
     @EnvironmentObject var model: ContentModel
+    
     @State var selectedAnswerIndex:Int?
     @State var numCorrect = 0
     @State var submitted = false

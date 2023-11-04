@@ -3,4 +3,70 @@
    uuid = "93143E7A-95D5-441C-A02D-9848E7498BB9"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E511A557-6100-472D-8EE1-9A3DBC0780F9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LetsCode/Views/Test/TestView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "E511A557-6100-472D-8EE1-9A3DBC0780F9 - b44c36a0cc8fca56"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LetsCode.TestView.body.getter : some"
+                  moduleName = "LetsCode"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/domymontalto/Desktop/Capstone/LetsCode/LetsCode/Views/Test/TestView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "776">
+               </Location>
+               <Location
+                  uuid = "E511A557-6100-472D-8EE1-9A3DBC0780F9 - b44c36a0cc8fca56"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "LetsCode.TestView.body.getter : some"
+                  moduleName = "LetsCode"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/domymontalto/Desktop/Capstone/LetsCode/LetsCode/Views/Test/TestView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "46"
+                  endingLineNumber = "46"
+                  offsetFromSymbolStart = "864">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E7780D29-4181-480A-9367-07F6E7A63149"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LetsCode/Views/Test/TestView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
