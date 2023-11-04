@@ -15,7 +15,7 @@ struct ContentViewRow: View {
     
     var lesson: Lesson {
         
-        if model.currentModule != nil && index < model.currentModule!.content.totLessons {
+        if model.currentModule != nil && index < model.currentModule!.content.lessons.count {
             
             return model.currentModule!.content.lessons[index]
             

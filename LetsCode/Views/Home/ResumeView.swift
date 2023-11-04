@@ -36,7 +36,6 @@ struct ResumeView: View {
         return Group {
             
             var module = model.modules[user.lastModule ?? 0]
-
             
             //Determine if we need to go into a ContentDetailView or a TestView
             if user.lastLesson! > 0 {
@@ -44,13 +43,12 @@ struct ResumeView: View {
                 //Ge to ContentDetailView
                 ContentDetailView()
                     .onAppear(perform: {
+                        
                         //Fetch lessons
                         model.getLessons(module) {
                             model.beginModule(module.id)
                             model.beginLesson(user.lastLesson!)
                         }
-                        
-                        
                     })
                 
             } else {
@@ -58,9 +56,11 @@ struct ResumeView: View {
                 //Go to testView
                 TestView()
                     .onAppear(perform: {
+                        
                         model.getQuestions(module) {
                             model.beginTest(module.id)
                             model.currentQuestionIndex = user.lastQuestion!
+                            model.resumeQuestion()
                         }
                     })
             }
@@ -81,19 +81,16 @@ struct ResumeView: View {
                 
                 RectangleCard()
                     .frame(height: 66)
-                    
+                
                 HStack{
                     
                     VStack(alignment: .leading){
                         
                         Text("Continue where you left off:")
-
+                        
                         Text(resumeTitle)
                             .fontWeight(.bold)
-                        
                     }
-                    
-                    
                     
                     Spacer()
                     
@@ -105,16 +102,13 @@ struct ResumeView: View {
                 }
                 .foregroundStyle(Color(Color.black))
                 .padding()
-        }
-
-        
-        
-
-            
+            }
             
         }
-
+        
     }
+    
+    
 }
 
 #Preview {

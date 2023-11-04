@@ -380,6 +380,16 @@ class ContentModel : ObservableObject {
         saveData()
     }
     
+    func resumeQuestion() {
+        
+        if currentQuestionIndex < currentModule!.test.totQuestions {
+            
+            currentQuestion = currentModule!.test.questions[currentQuestionIndex]
+            codeText = addStyling(currentQuestion!.content)
+        }
+        
+    }
+    
     func nextQuestion() {
         
         //Advance the question index
