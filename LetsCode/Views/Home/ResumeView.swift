@@ -41,7 +41,7 @@ struct ResumeView: View {
             if user.lastLesson! > 0 {
                 
                 //Ge to ContentDetailView
-                ContentDetailView()
+                ContentDetailView(lessonIndex: 0)
                     .onAppear(perform: {
                         
                         //Fetch lessons

@@ -13,7 +13,7 @@ class ContentModel : ObservableObject {
     
     //Authentication
     @Published var loggedIn = false
-
+    
     let db = Firestore.firestore()
     
     //List of Module
@@ -33,6 +33,10 @@ class ContentModel : ObservableObject {
     
     //Current Lesson explanation
     @Published var codeText = NSAttributedString()
+    
+    //Current video status
+    @Published var isPlaying = false
+    
     var styleData: Data?
     
     //Current selected content and test
@@ -42,8 +46,6 @@ class ContentModel : ObservableObject {
     
     init() {
         
-        //Get database modules
-        //getModules()
     }
     
     //MARK: - Authentication methods
@@ -122,7 +124,7 @@ class ContentModel : ObservableObject {
     
     
     func getModules() {
-                
+        
         //Parse local style.html
         getLocalStyles()
         
@@ -248,7 +250,7 @@ class ContentModel : ObservableObject {
         
         //Get documents
         collection.getDocuments{ snapshot,  error in
-                        
+            
             if error == nil && snapshot != nil {
                 
                 //Array to track questions
@@ -339,20 +341,24 @@ class ContentModel : ObservableObject {
         
         //Reset the question index since the user is starting lessons now
         currentQuestionIndex = 0
+        
+        if currentModule != nil {
+            
+            //Check that the lesson index is within range of module lessons
+            if lessonIndex < currentModule!.content.lessons.count {
                 
-        //Check that the lesson index is within range of module lessons
-        if lessonIndex < currentModule!.content.lessons.count {
+                currentLessonIndex = lessonIndex
+                
+            } else {
+                
+                currentLessonIndex = 0
+            }
             
-            currentLessonIndex = lessonIndex
+            //Set the current lesson
+            currentLesson = currentModule!.content.lessons[currentLessonIndex]
             
-        } else {
-            currentLessonIndex = 0
+            codeText = addStyling(currentLesson!.explanation)
         }
-        
-        //Set the current lesson
-        currentLesson = currentModule!.content.lessons[currentLessonIndex]
-        
-        codeText = addStyling(currentLesson!.explanation)
     }
     
     func nextLesson() {

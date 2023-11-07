@@ -32,6 +32,7 @@
 		D3AB56F32AD1BE8A00FA2DDF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AB56F22AD1BE8A00FA2DDF /* ContentView.swift */; };
 		D3AB56F52AD1CB1100FA2DDF /* ContentViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AB56F42AD1CB1100FA2DDF /* ContentViewRow.swift */; };
 		D3ABB4F32AF57911006E0AF9 /* ResumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ABB4F22AF57911006E0AF9 /* ResumeView.swift */; };
+		D3ABB4F52AF9472A006E0AF9 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ABB4F42AF9472A006E0AF9 /* PlayerViewController.swift */; };
 		D3E444782AD5BA1D001643A6 /* ContentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E444772AD5BA1D001643A6 /* ContentDetailView.swift */; };
 		D3E4447B2AD5C0E6001643A6 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3E4447A2AD5C0E6001643A6 /* AVKit.framework */; };
 		D3E4447D2AD5C21B001643A6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E4447C2AD5C21B001643A6 /* Constants.swift */; };
@@ -65,6 +66,7 @@
 		D3AB56F22AD1BE8A00FA2DDF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D3AB56F42AD1CB1100FA2DDF /* ContentViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewRow.swift; sourceTree = "<group>"; };
 		D3ABB4F22AF57911006E0AF9 /* ResumeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeView.swift; sourceTree = "<group>"; };
+		D3ABB4F42AF9472A006E0AF9 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		D3E444772AD5BA1D001643A6 /* ContentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDetailView.swift; sourceTree = "<group>"; };
 		D3E4447A2AD5C0E6001643A6 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		D3E4447C2AD5C21B001643A6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 			children = (
 				D3E4447E2AD7663E001643A6 /* CodeTextView.swift */,
 				D3E444832AD8BC91001643A6 /* RectangleCard.swift */,
+				D3ABB4F42AF9472A006E0AF9 /* PlayerViewController.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 				D3449A302AED782F00FA15F4 /* LoginView.swift in Sources */,
 				D3E444782AD5BA1D001643A6 /* ContentDetailView.swift in Sources */,
 				D3AB56F32AD1BE8A00FA2DDF /* ContentView.swift in Sources */,
+				D3ABB4F52AF9472A006E0AF9 /* PlayerViewController.swift in Sources */,
 				D390216F2ACE209B00C71494 /* Lesson.swift in Sources */,
 				D3449A322AED785B00FA15F4 /* ProfileView.swift in Sources */,
 				D390216D2ACE208D00C71494 /* Content.swift in Sources */,

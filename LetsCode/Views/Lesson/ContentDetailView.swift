@@ -6,11 +6,15 @@
 //
 
 import SwiftUI
+
+// To import AVKit go to LetsCode then frameworks libraries and embedded content click on the plus button and add AVKit.framework
 import AVKit
 
 struct ContentDetailView: View {
     
     @EnvironmentObject var model: ContentModel
+    
+    @State var lessonIndex: Int
     
     var body: some View {
         
@@ -22,8 +26,9 @@ struct ContentDetailView: View {
             //Only show video if we get a valid URL
             if url != nil {
                 
-                VideoPlayer(player: AVPlayer(url: url!))
+                PlayerViewController(model: model, videoURL: url!)
                     .cornerRadius(10)
+            
             }
             
             //Description
@@ -34,8 +39,9 @@ struct ContentDetailView: View {
                 
                 Button {
                     
-                    //Advance the lesson
+                    //Advance the lesson and lessonIndex
                     model.nextLesson()
+                    lessonIndex += 1
                     
                 } label: {
                     
@@ -57,7 +63,6 @@ struct ContentDetailView: View {
             else {
                 
                 //Show the complete button instead
-                
                 Button {
                     
                     //Advance the lesson
@@ -84,6 +89,9 @@ struct ContentDetailView: View {
 
             
         }
+        .onAppear(perform: {
+            model.beginLesson(lessonIndex)
+        })
         .navigationTitle(lesson?.title ?? "")
         .navigationBarTitleDisplayMode(.inline)
         .padding()
@@ -91,6 +99,3 @@ struct ContentDetailView: View {
     }
 }
 
-#Preview {
-    ContentDetailView()
-}
