@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Test: Decodable, Identifiable {
+struct Test: Decodable, Identifiable, Hashable {
     
     var id: String = ""
     var image: String = ""

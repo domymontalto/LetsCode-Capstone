@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     
     @EnvironmentObject var model:ContentModel
+    
     let user = UserService.shared.user
     
     var navTitle: String {
@@ -17,7 +18,7 @@ struct HomeView: View {
         if user.lastLesson != nil || user.lastQuestion != nil {
             
             return "Welcome Back"
-
+            
         } else {
             
             return "Get Started"
@@ -51,40 +52,56 @@ struct HomeView: View {
                             
                             VStack(spacing: 20) {
                                 
-                                NavigationLink(
+                                Button {
                                     
-                                    destination:
-                                        ContentView()
-                                        .onAppear(perform: {
-                                            model.getLessons(module) {
-                                                model.beginModule(module.id)
-                                            }
-                                        }),
+                                    //Preparing for NavigationLink
+                                    model.getLessons(module) {
+                                        model.beginModule(module.id)
+                                        //Navigate to ContentView after preparation
+                                        model.currentContentSelected = module.id.hash
+                                    }
+                                    
+                                } label: {
+                                    
+                                    //Learning Card
+                                    HomeViewRow(image: module.content.image, title: "Learn \(module.category)", description: module.content.description, count: "\(module.content.totLessons) Lessons ", time: module.content.time)
+                                }
+                                
+                                //This NavigationLink is inactive and only triggered by state changes
+                                NavigationLink(
+                                    destination: ContentView(),
                                     tag: module.id.hash,
                                     selection: $model.currentContentSelected,
-                                    label: {
+                                    label: { EmptyView() }
+                                ).hidden()
+                                
+                                
+                                Button {
+                                    
+                                    //Preparing for NavigationLink
+                                    model.getQuestions(module) {
+                                        model.beginTest(module.id)
+                                        model.resumeQuestion()
+                                        //Navigate to TestView after preparation
+                                        model.currentTestSelected = module.id.hash
                                         
-                                        //Learning Card
-                                        HomeViewRow(image: module.content.image, title: "Learn \(module.category)", description: module.content.description, count: "\(module.content.totLessons) Lessons ", time: module.content.time)
-                                    })
+                                    }
+                                    
+                                } label: {
+                                    
+                                    //Testing Card
+                                    HomeViewRow(image: module.test.image, title: "\(module.category) Test", description: module.test.description, count: "\(module.test.totQuestions) Lessons ", time: module.test.time)
+                                }
                                 
                                 
+                                //This NavigationLink is inactive and only triggered by state changes
                                 NavigationLink(
-                                    destination: TestView()
-                                        .onAppear(perform: {
-                                            model.getQuestions(module) {
-                                                model.beginTest(module.id)
-                                            }
-                                    }),
+                                    destination: TestView(),
                                     tag: module.id.hash,
                                     selection: $model.currentTestSelected,
-                                    label: {
-                                        
-                                        //Test Card
-                                        HomeViewRow(image: module.test.image, title: "\(module.category) Test", description: module.test.description, count: "\(module.test.totQuestions) Lessons ", time: module.test.time)
-                                    })
-                                
-                                
+                                    label: { EmptyView() }
+                                ).hidden()
+
                             }
                             
                         }
@@ -92,7 +109,6 @@ struct HomeView: View {
                     .buttonStyle(.plain)
                     .padding()
                 }
-                
                 
             }
             .navigationTitle(navTitle)

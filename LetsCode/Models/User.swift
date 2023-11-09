@@ -10,6 +10,7 @@ import Foundation
 class User {
     
     var name: String = ""
+    var email: String = ""
     var lastModule: Int?
     var lastLesson: Int?
     var lastQuestion: Int?

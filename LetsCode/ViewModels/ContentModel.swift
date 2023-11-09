@@ -489,6 +489,13 @@ class ContentModel : ObservableObject {
         return resultString
     }
     
+    // MARK: Email and password validation
+    func isEmailOrPasswordValid(emailOrPasswor: String, pattern: String ) -> Bool {
+        
+        let test = NSPredicate(format: "SELF MATCHES %@", pattern)
+        return test.evaluate(with: emailOrPasswor)
+    }
+    
     
     
     

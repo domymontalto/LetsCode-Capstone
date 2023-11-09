@@ -30,79 +30,105 @@ struct ResumeView: View {
         
     }
     
-    var destination: some View {
-        
-        
-        return Group {
-            
-            var module = model.modules[user.lastModule ?? 0]
-            
-            //Determine if we need to go into a ContentDetailView or a TestView
-            if user.lastLesson! > 0 {
-                
-                //Ge to ContentDetailView
-                ContentDetailView(lessonIndex: 0)
-                    .onAppear(perform: {
-                        
-                        //Fetch lessons
-                        model.getLessons(module) {
-                            model.beginModule(module.id)
-                            model.beginLesson(user.lastLesson!)
-                        }
-                    })
-                
-            } else {
-                
-                //Go to testView
-                TestView()
-                    .onAppear(perform: {
-                        
-                        model.getQuestions(module) {
-                            model.beginTest(module.id)
-                            model.currentQuestionIndex = user.lastQuestion!
-                            model.resumeQuestion()
-                        }
-                    })
-            }
-            
-        }
-        
-    }
-    
     
     var body: some View {
         
         let module = model.modules[user.lastModule ?? 0]
         
-        NavigationLink(destination: destination,
-                       tag: module.id.hash,
-                       selection: $resumeSelected) {
-            ZStack{
+        if user.lastLesson! > 0 {
+            
+            Button {
                 
-                RectangleCard()
-                    .frame(height: 66)
-                
-                HStack{
-                    
-                    VStack(alignment: .leading){
-                        
-                        Text("Continue where you left off:")
-                        
-                        Text(resumeTitle)
-                            .fontWeight(.bold)
-                    }
-                    
-                    Spacer()
-                    
-                    Image(systemName: "play.circle")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 40, height: 40)
-                    
+                model.getLessons(module) {
+                    model.beginModule(module.id)
+                    model.beginLesson(user.lastLesson!)
+                    resumeSelected = module.id.hash
                 }
-                .foregroundStyle(Color(Color.black))
-                .padding()
+                
+            } label: {
+                
+                ZStack{
+                    
+                    RectangleCard()
+                        .frame(height: 66)
+                    
+                    HStack{
+                        
+                        VStack(alignment: .leading){
+                            
+                            Text("Continue where you left off:")
+                            
+                            Text(resumeTitle)
+                                .fontWeight(.bold)
+                        }
+                        
+                        Spacer()
+                        
+                        Image(systemName: "play.circle")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 40, height: 40)
+                        
+                    }
+                    .foregroundStyle(Color(Color.black))
+                    .padding()
+                }
             }
+            
+            NavigationLink(destination: ContentDetailView(lessonIndex: user.lastLesson ?? 0),
+                           tag: module.id.hash,
+                           selection: $resumeSelected,
+                           label: { EmptyView() }
+            ).hidden()
+            
+        } else {
+            
+            Button {
+                
+                model.getQuestions(module) {
+                    model.beginTest(module.id)
+                    model.currentQuestionIndex = user.lastQuestion!
+                    model.resumeQuestion()
+                    resumeSelected = module.id.hash
+                }
+                
+            } label: {
+                
+                ZStack{
+                    
+                    RectangleCard()
+                        .frame(height: 66)
+                    
+                    HStack{
+                        
+                        VStack(alignment: .leading){
+                            
+                            Text("Continue where you left off:")
+                            
+                            Text(resumeTitle)
+                                .fontWeight(.bold)
+                        }
+                        
+                        Spacer()
+                        
+                        Image(systemName: "play.circle")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 40, height: 40)
+                        
+                    }
+                    .foregroundStyle(Color(Color.black))
+                    .padding()
+                }
+                
+            }
+            
+            NavigationLink(destination: TestView(),
+                           tag: module.id.hash,
+                           selection: $resumeSelected,
+                           label: { EmptyView() }
+            ).hidden()
+            
             
         }
         

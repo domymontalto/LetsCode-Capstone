@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Lesson: Decodable, Identifiable {
+struct Lesson: Decodable, Identifiable, Hashable {
     
     var id: String = ""
     var title: String = ""

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Question: Decodable, Identifiable {
+struct Question: Decodable, Identifiable, Hashable {
     
     var id: String = ""
     var content: String = ""

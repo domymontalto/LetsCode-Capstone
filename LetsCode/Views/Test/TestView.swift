@@ -24,7 +24,7 @@ struct TestView: View {
             //Check if answer has been submitted
             if submitted == true {
                 
-                if model.currentQuestionIndex + 1 == model.currentModule!.test.totQuestions {
+                if model.currentQuestionIndex + 1 == model.currentModule?.test.totQuestions ?? 0 {
                     
                     //This is the last question
                     return "Finish"
