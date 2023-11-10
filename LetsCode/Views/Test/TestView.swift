@@ -11,11 +11,12 @@ struct TestView: View {
     
     @EnvironmentObject var model: ContentModel
     
+    @Binding var navigationPath: NavigationPath
+    
     @State var selectedAnswerIndex:Int?
-    @State var numCorrect = 0
     @State var submitted = false
     @State var showResults = false
-    
+     
     var body: some View {
         
         
@@ -157,10 +158,9 @@ struct TestView: View {
                         submitted = true
                         
                         //Check the answer and increment the count if correct
-                        
                         if selectedAnswerIndex == model.currentQuestion!.correctIndex {
                             
-                            numCorrect += 1
+                            model.numCorrect! += 1
                         }
                         
                     }
@@ -190,8 +190,9 @@ struct TestView: View {
 
         } else if showResults == true {
             
-            //If current question is nil, we show ther result view
-            TestResultView(numCorrect: numCorrect)
+            //If showResults is true we show ther result view
+            TestResultView(navigationPath: $navigationPath)
+            
         } else {
             
             ProgressView()
@@ -199,6 +200,6 @@ struct TestView: View {
     }
 }
 
-#Preview {
-    TestView()
-}
+//#Preview {
+//    TestView()
+//}

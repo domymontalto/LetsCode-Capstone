@@ -16,6 +16,8 @@ struct ContentDetailView: View {
     
     @State var lessonIndex: Int
     
+    @Binding var navigationPath: NavigationPath
+    
     var body: some View {
         
         let lesson = model.currentLesson
@@ -69,7 +71,7 @@ struct ContentDetailView: View {
                     model.nextLesson()
                     
                     //Take user back to the HomeView
-                    model.currentContentSelected = nil
+                    navigationPath.removeLast(navigationPath.count)
                     
                 } label: {
                     

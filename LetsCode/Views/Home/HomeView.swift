@@ -1,3 +1,4 @@
+
 //
 //  ContentView.swift
 //  LetsCode
@@ -10,6 +11,12 @@ import SwiftUI
 struct HomeView: View {
     
     @EnvironmentObject var model:ContentModel
+    
+    @State var navigationPath = NavigationPath()
+    @State var showLessons = false
+    @State var showTest = false
+    @State var resumeLessons = false
+    @State var resumeTest = false
     
     let user = UserService.shared.user
     
@@ -29,15 +36,15 @@ struct HomeView: View {
     
     var body: some View {
         
-        NavigationView {
+        NavigationStack(path: $navigationPath) {
             
             VStack(alignment: .leading) {
                 
                 if user.lastLesson != nil && user.lastLesson! > 0 || user.lastQuestion != nil && user.lastQuestion! > 0 {
                     
                     //Show the resume view
-                    ResumeView()
-                        .padding(.horizontal)
+                    ResumeView(navigationPath: $navigationPath, showLessons: $showLessons, showTest: $showTest, resumeLessons: $resumeLessons, resumeTest: $resumeTest)
+                        .padding([.horizontal, .top])
                     
                 } else {
                     
@@ -45,7 +52,8 @@ struct HomeView: View {
                         .padding(.leading)
                 }
                 
-                ScrollView {
+                ScrollView(showsIndicators: false) {
+                    
                     LazyVStack {
                         
                         ForEach(model.modules) { module in
@@ -54,54 +62,48 @@ struct HomeView: View {
                                 
                                 Button {
                                     
-                                    //Preparing for NavigationLink
+                                    //Preparing for ContentView
                                     model.getLessons(module) {
                                         model.beginModule(module.id)
-                                        //Navigate to ContentView after preparation
-                                        model.currentContentSelected = module.id.hash
+                                        
+                                        navigationPath.append(module)
+                                        
+                                        showLessons = true
+                                        showTest = false
+                                        resumeLessons = false
+                                        resumeTest = false
                                     }
                                     
                                 } label: {
                                     
-                                    //Learning Card
+                                    //Learn Card
                                     HomeViewRow(image: module.content.image, title: "Learn \(module.category)", description: module.content.description, count: "\(module.content.totLessons) Lessons ", time: module.content.time)
                                 }
-                                
-                                //This NavigationLink is inactive and only triggered by state changes
-                                NavigationLink(
-                                    destination: ContentView(),
-                                    tag: module.id.hash,
-                                    selection: $model.currentContentSelected,
-                                    label: { EmptyView() }
-                                ).hidden()
-                                
+                                .padding(.top, 12)
                                 
                                 Button {
                                     
-                                    //Preparing for NavigationLink
+                                    //Preparing for TestView
                                     model.getQuestions(module) {
                                         model.beginTest(module.id)
-                                        model.resumeQuestion()
-                                        //Navigate to TestView after preparation
-                                        model.currentTestSelected = module.id.hash
                                         
+                                        navigationPath.append(module)
+                                        
+                                        showLessons = false
+                                        showTest = true
+                                        resumeLessons = false
+                                        resumeTest = false
+                                        
+                                        //Reset number of correct answers
+                                        model.numCorrect = 0
                                     }
                                     
                                 } label: {
                                     
-                                    //Testing Card
+                                    //Test Card
                                     HomeViewRow(image: module.test.image, title: "\(module.category) Test", description: module.test.description, count: "\(module.test.totQuestions) Lessons ", time: module.test.time)
                                 }
                                 
-                                
-                                //This NavigationLink is inactive and only triggered by state changes
-                                NavigationLink(
-                                    destination: TestView(),
-                                    tag: module.id.hash,
-                                    selection: $model.currentTestSelected,
-                                    label: { EmptyView() }
-                                ).hidden()
-
                             }
                             
                         }
@@ -111,28 +113,26 @@ struct HomeView: View {
                 }
                 
             }
+            .navigationDestination(for: Module.self) { module in
+                
+                if showLessons {
+                    
+                    ContentView(navigationPath: $navigationPath)
+                    
+                } else if resumeLessons {
+                    
+                    ContentDetailView(lessonIndex: user.lastLesson ?? 0, navigationPath: $navigationPath)
+                    
+                } else if showTest || resumeTest {
+                    
+                    TestView(navigationPath: $navigationPath)
+                }
+                    
+            }
             .navigationTitle(navTitle)
-            .onChange(of: model.currentContentSelected) { changedValue in
-                
-                if changedValue == nil {
-                    model.currentModule = nil
-                }
-            }
-            .onChange(of: model.currentTestSelected) { changedValue in
-                
-                if changedValue == nil {
-                    model.currentModule = nil
-                }
-                
-            }
         }
-        .navigationViewStyle(.stack)
-        
+
         
     }
 }
 
-#Preview {
-    HomeView()
-        .environmentObject(ContentModel())
-}

@@ -11,9 +11,10 @@ import FirebaseAuth
 
 class ContentModel : ObservableObject {
     
-    //Authentication
+    //Check if there is a firebase user authenticated
     @Published var loggedIn = false
     
+    //Instante of firestore
     let db = Firestore.firestore()
     
     //List of Module
@@ -31,17 +32,17 @@ class ContentModel : ObservableObject {
     @Published var currentQuestion: Question?
     @Published var currentQuestionIndex = 0
     
+    //Correct answers
+    @Published var numCorrect:Int?
+    
     //Current Lesson explanation
     @Published var codeText = NSAttributedString()
     
     //Current video status
     @Published var isPlaying = false
     
+    //Style of the Data
     var styleData: Data?
-    
-    //Current selected content and test
-    @Published var currentContentSelected:Int?
-    @Published var currentTestSelected:Int?
     
     
     init() {
@@ -91,6 +92,7 @@ class ContentModel : ObservableObject {
         }
         
     }
+    
     
     func getUserData() {
         
@@ -186,8 +188,8 @@ class ContentModel : ObservableObject {
             
         }
         
-        
     }
+    
     
     func getLessons(_ module: Module, completion: @escaping () -> Void) {
         
@@ -240,7 +242,6 @@ class ContentModel : ObservableObject {
             
         }
     }
-    
     
     
     func getQuestions(_ module: Module, completion: @escaping () -> Void) {
@@ -337,6 +338,7 @@ class ContentModel : ObservableObject {
         
     }
     
+    
     func beginLesson(_ lessonIndex: Int) {
         
         //Reset the question index since the user is starting lessons now
@@ -360,6 +362,7 @@ class ContentModel : ObservableObject {
             codeText = addStyling(currentLesson!.explanation)
         }
     }
+    
     
     func nextLesson() {
         
@@ -386,6 +389,7 @@ class ContentModel : ObservableObject {
         saveData()
     }
     
+    
     func resumeQuestion() {
         
         if currentQuestionIndex < currentModule!.test.totQuestions {
@@ -395,6 +399,7 @@ class ContentModel : ObservableObject {
         }
         
     }
+    
     
     func nextQuestion() {
         
@@ -418,6 +423,7 @@ class ContentModel : ObservableObject {
         saveData()
     }
     
+    
     func hasNextLesson() -> Bool {
         
         guard currentModule != nil else {
@@ -435,7 +441,7 @@ class ContentModel : ObservableObject {
         
     }
     
-    
+
     func beginTest(_ moduleId: String) {
         
         //Set current module
@@ -489,14 +495,13 @@ class ContentModel : ObservableObject {
         return resultString
     }
     
+    
     // MARK: Email and password validation
     func isEmailOrPasswordValid(emailOrPasswor: String, pattern: String ) -> Bool {
         
         let test = NSPredicate(format: "SELF MATCHES %@", pattern)
         return test.evaluate(with: emailOrPasswor)
     }
-    
-    
     
     
 }

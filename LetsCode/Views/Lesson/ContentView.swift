@@ -11,10 +11,11 @@ struct ContentView: View {
     
     @EnvironmentObject var model:ContentModel
     
+    @Binding var navigationPath: NavigationPath
     
     var body: some View {
 
-        ScrollView {
+        ScrollView(showsIndicators: false) {
 
             LazyVStack {
                 
@@ -24,7 +25,7 @@ struct ContentView: View {
                         
                         NavigationLink {
 
-                            ContentDetailView(lessonIndex: index)
+                            ContentDetailView(lessonIndex: index, navigationPath: $navigationPath)
                             
                         } label: {
                             
@@ -48,6 +49,6 @@ struct ContentView: View {
     }
 }
 
-#Preview {
-    ContentView()
-}
+//#Preview {
+//    ContentView()
+//}

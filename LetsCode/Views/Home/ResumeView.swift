@@ -11,7 +11,12 @@ struct ResumeView: View {
     
     @EnvironmentObject var model:ContentModel
     
-    @State var resumeSelected: Int?
+    @Binding var navigationPath: NavigationPath
+    
+    @Binding var showLessons: Bool
+    @Binding var showTest: Bool
+    @Binding var resumeLessons: Bool
+    @Binding var resumeTest: Bool
     
     let user = UserService.shared.user
     
@@ -35,101 +40,57 @@ struct ResumeView: View {
         
         let module = model.modules[user.lastModule ?? 0]
         
-        if user.lastLesson! > 0 {
+        Group {
             
-            Button {
+            if user.lastLesson! > 0 {
                 
-                model.getLessons(module) {
-                    model.beginModule(module.id)
-                    model.beginLesson(user.lastLesson!)
-                    resumeSelected = module.id.hash
-                }
-                
-            } label: {
-                
-                ZStack{
+                Button {
                     
-                    RectangleCard()
-                        .frame(height: 66)
-                    
-                    HStack{
+                    //Preparing for ContentDetailView
+                    model.getLessons(module) {
+                        model.beginModule(module.id)
                         
-                        VStack(alignment: .leading){
-                            
-                            Text("Continue where you left off:")
-                            
-                            Text(resumeTitle)
-                                .fontWeight(.bold)
-                        }
+                        navigationPath.append(module)
                         
-                        Spacer()
-                        
-                        Image(systemName: "play.circle")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 40, height: 40)
+                        resumeLessons = true
+                        showLessons = false
+                        showTest = false
+                        resumeTest = false
                         
                     }
-                    .foregroundStyle(Color(Color.black))
-                    .padding()
-                }
-            }
-            
-            NavigationLink(destination: ContentDetailView(lessonIndex: user.lastLesson ?? 0),
-                           tag: module.id.hash,
-                           selection: $resumeSelected,
-                           label: { EmptyView() }
-            ).hidden()
-            
-        } else {
-            
-            Button {
-                
-                model.getQuestions(module) {
-                    model.beginTest(module.id)
-                    model.currentQuestionIndex = user.lastQuestion!
-                    model.resumeQuestion()
-                    resumeSelected = module.id.hash
+                    
+                } label: {
+                    
+                    ResumeCard(resumeTitle: resumeTitle)
                 }
                 
-            } label: {
+            } else {
                 
-                ZStack{
+                Button {
                     
-                    RectangleCard()
-                        .frame(height: 66)
-                    
-                    HStack{
+                    //Preparing for TestView
+                    model.getQuestions(module) {
+                        model.beginTest(module.id)
+                        //Restart from the user's last question
+                        model.currentQuestionIndex = user.lastQuestion!
+                        model.resumeQuestion()
                         
-                        VStack(alignment: .leading){
-                            
-                            Text("Continue where you left off:")
-                            
-                            Text(resumeTitle)
-                                .fontWeight(.bold)
-                        }
+                        navigationPath.append(module)
                         
-                        Spacer()
-                        
-                        Image(systemName: "play.circle")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 40, height: 40)
+                        resumeTest = true
+                        showLessons = false
+                        showTest = false
+                        resumeLessons = false
                         
                     }
-                    .foregroundStyle(Color(Color.black))
-                    .padding()
+                    
+                } label: {
+                    
+                    ResumeCard(resumeTitle: resumeTitle)
                 }
+
                 
             }
-            
-            NavigationLink(destination: TestView(),
-                           tag: module.id.hash,
-                           selection: $resumeSelected,
-                           label: { EmptyView() }
-            ).hidden()
-            
-            
         }
         
     }
@@ -137,6 +98,6 @@ struct ResumeView: View {
     
 }
 
-#Preview {
-    ResumeView()
-}
+//#Preview {
+//    ResumeView()
+//}

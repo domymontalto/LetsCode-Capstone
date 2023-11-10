@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		D306F5D82ACBA165009EF5AB /* LetsCodeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D306F5D72ACBA165009EF5AB /* LetsCodeApp.swift */; };
-		D306F5DA2ACBA165009EF5AB /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D306F5D92ACBA165009EF5AB /* HomeView.swift */; };
 		D306F5DC2ACBA167009EF5AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D306F5DB2ACBA167009EF5AB /* Assets.xcassets */; };
 		D306F5DF2ACBA167009EF5AB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D306F5DE2ACBA167009EF5AB /* Preview Assets.xcassets */; };
 		D30FFC6D2AD0A271002E764D /* HomeViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30FFC6C2AD0A271002E764D /* HomeViewRow.swift */; };
@@ -22,6 +21,8 @@
 		D34D7CA62AE876B4006F6E7A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D34D7CA52AE876B4006F6E7A /* GoogleService-Info.plist */; };
 		D34D7CA92AE87836006F6E7A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D34D7CA82AE87836006F6E7A /* FirebaseAuth */; };
 		D34D7CAB2AE87836006F6E7A /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = D34D7CAA2AE87836006F6E7A /* FirebaseFirestore */; };
+		D377E89E2AFD436F00CCC127 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D377E89D2AFD436F00CCC127 /* HomeView.swift */; };
+		D377E8A02AFD9EA600CCC127 /* ResumeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D377E89F2AFD9EA600CCC127 /* ResumeCard.swift */; };
 		D39021672ACE181A00C71494 /* ContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39021662ACE181A00C71494 /* ContentModel.swift */; };
 		D390216B2ACE202400C71494 /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = D390216A2ACE202400C71494 /* Module.swift */; };
 		D390216D2ACE208D00C71494 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = D390216C2ACE208D00C71494 /* Content.swift */; };
@@ -44,7 +45,6 @@
 /* Begin PBXFileReference section */
 		D306F5D42ACBA165009EF5AB /* LetsCode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LetsCode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D306F5D72ACBA165009EF5AB /* LetsCodeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LetsCodeApp.swift; sourceTree = "<group>"; };
-		D306F5D92ACBA165009EF5AB /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		D306F5DB2ACBA167009EF5AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D306F5DE2ACBA167009EF5AB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D30FFC6C2AD0A271002E764D /* HomeViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewRow.swift; sourceTree = "<group>"; };
@@ -56,6 +56,8 @@
 		D3449A352AF167DC00FA15F4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D3449A372AF168A500FA15F4 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		D34D7CA52AE876B4006F6E7A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D377E89D2AFD436F00CCC127 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		D377E89F2AFD9EA600CCC127 /* ResumeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeCard.swift; sourceTree = "<group>"; };
 		D39021662ACE181A00C71494 /* ContentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentModel.swift; sourceTree = "<group>"; };
 		D390216A2ACE202400C71494 /* Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
 		D390216C2ACE208D00C71494 /* Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
@@ -203,7 +205,7 @@
 		D39021652ACE17D700C71494 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				D306F5D92ACBA165009EF5AB /* HomeView.swift */,
+				D377E89D2AFD436F00CCC127 /* HomeView.swift */,
 				D30FFC6C2AD0A271002E764D /* HomeViewRow.swift */,
 				D3ABB4F22AF57911006E0AF9 /* ResumeView.swift */,
 			);
@@ -234,6 +236,7 @@
 				D3E4447E2AD7663E001643A6 /* CodeTextView.swift */,
 				D3E444832AD8BC91001643A6 /* RectangleCard.swift */,
 				D3ABB4F42AF9472A006E0AF9 /* PlayerViewController.swift */,
+				D377E89F2AFD9EA600CCC127 /* ResumeCard.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -321,18 +324,19 @@
 				D3AB56F52AD1CB1100FA2DDF /* ContentViewRow.swift in Sources */,
 				D3449A342AED787300FA15F4 /* LaunchView.swift in Sources */,
 				D32DA7462AE05EEA00AE5976 /* TestResultView.swift in Sources */,
-				D306F5DA2ACBA165009EF5AB /* HomeView.swift in Sources */,
 				D30FFC6D2AD0A271002E764D /* HomeViewRow.swift in Sources */,
 				D3E444842AD8BC91001643A6 /* RectangleCard.swift in Sources */,
 				D3449A382AF168A500FA15F4 /* UserService.swift in Sources */,
 				D32DA7442AD9F19100AE5976 /* TestView.swift in Sources */,
 				D39021732ACE20BF00C71494 /* Question.swift in Sources */,
 				D3E4447F2AD7663E001643A6 /* CodeTextView.swift in Sources */,
+				D377E8A02AFD9EA600CCC127 /* ResumeCard.swift in Sources */,
 				D390216B2ACE202400C71494 /* Module.swift in Sources */,
 				D306F5D82ACBA165009EF5AB /* LetsCodeApp.swift in Sources */,
 				D39021712ACE20AB00C71494 /* Test.swift in Sources */,
 				D3E4447D2AD5C21B001643A6 /* Constants.swift in Sources */,
 				D3449A302AED782F00FA15F4 /* LoginView.swift in Sources */,
+				D377E89E2AFD436F00CCC127 /* HomeView.swift in Sources */,
 				D3E444782AD5BA1D001643A6 /* ContentDetailView.swift in Sources */,
 				D3AB56F32AD1BE8A00FA2DDF /* ContentView.swift in Sources */,
 				D3ABB4F52AF9472A006E0AF9 /* PlayerViewController.swift in Sources */,

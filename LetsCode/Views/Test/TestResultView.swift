@@ -11,7 +11,7 @@ struct TestResultView: View {
     
     @EnvironmentObject var model:ContentModel
     
-    var numCorrect: Int
+    @Binding var navigationPath: NavigationPath
     
     var resultHeading: String {
         
@@ -19,7 +19,7 @@ struct TestResultView: View {
             return ""
         }
         
-        let pct = Double(numCorrect)/Double(model.currentModule!.test.totQuestions)
+        let pct = Double(model.numCorrect!)/Double(model.currentModule!.test.totQuestions)
         
         if pct >= 0.8 {
             return "Awesome!"
@@ -36,22 +36,23 @@ struct TestResultView: View {
         
         VStack {
             
+            Spacer()
+            
             Text(resultHeading)
                 .font(.title)
             
             Spacer()
             
-            Text("You got \(numCorrect) out of \(model.currentModule?.test.totQuestions ?? 0) questions")
+            Text("You got \(model.numCorrect!) out of \(model.currentModule?.test.totQuestions ?? 0) questions")
             
             Spacer()
             
             Button {
                 
                 //Send the user back to the home view
-                model.currentTestSelected = nil;
+                navigationPath.removeLast(navigationPath.count)
                 
             } label: {
-                
                 
                 ZStack {
                     
@@ -61,13 +62,10 @@ struct TestResultView: View {
                     Text("Complete")
                         .fontWeight(.bold)
                         .foregroundColor(.white)
-                    
                 }
                 
             }
             .padding()
-            
-            Spacer()
             
         }
     }
