@@ -35,11 +35,20 @@ class ContentModel : ObservableObject {
     //Correct answers
     @Published var numCorrect:Int?
     
+    //List of Awards
+    @Published var awards = [Award]()
+        
+    //Determines is a specific Award was already earned
+    @Published var alreadyEarnedAward:Bool?
+    
     //Current Lesson explanation
     @Published var codeText = NSAttributedString()
     
     //Current video status
     @Published var isPlaying = false
+    
+    //Determines is user has already earned any Awards
+    @Published var userHasAwards = false
     
     //Style of the Data
     var styleData: Data?
@@ -120,6 +129,27 @@ class ContentModel : ObservableObject {
             user.lastModule = data?["lastModule"] as? Int
             user.lastLesson = data?["lastLesson"] as? Int
             user.lastQuestion = data?["lastQuestion"] as? Int
+            
+            //Decode the awards array
+            if let awardsData = data?["awards"] as? [[String: Any]] {
+                let awards: [Award] = awardsData.compactMap { awardData in
+                    
+                    guard
+                        let name = awardData["name"] as? String,
+                        let difficulty = awardData["difficulty"] as? String,
+                        let earnedImage = awardData["earnedImage"] as? String,
+                        let unearnedImage = awardData["unearnedImage"] as? String
+                    else {
+                        return nil
+                    }
+                    // Initialize an Award object with the decoded properties
+                    return Award(name: name, difficulty: difficulty, earnedImage: earnedImage, unearnedImage: unearnedImage)
+                }
+                user.awards = awards
+            } else {
+                user.awards = [] // If awards array is not present or empty in Firestore
+            }
+            
         }
         
     }
@@ -294,6 +324,77 @@ class ContentModel : ObservableObject {
         }
         
         
+    }
+    
+    func getAwards() {
+        
+        let firebaseAwards = Firestore.firestore().collection("awards")
+        
+        firebaseAwards.getDocuments { snapshot, error in
+            
+            if error == nil && snapshot != nil {
+                
+                var awards = [Award]()
+                
+                for doc in snapshot!.documents {
+                    
+                    var award = Award()
+                    
+                    award.name = doc["name"] as? String ?? ""
+                    award.difficulty = doc["difficulty"] as? String ?? ""
+                    award.earnedImage = doc["earnedImage"] as? String ?? ""
+                    award.unearnedImage = doc["unearnedImage"] as? String ?? ""
+                    
+                    awards.append(award)
+                }
+                
+                DispatchQueue.main.async {
+                    self.awards = awards
+                }
+                
+            }
+            
+        }
+        
+    }
+    
+    
+    func updateAwards() {
+                
+        for award in awards {
+            
+            if award.name == currentModule?.category {
+                
+                if let firebaseUser = Auth.auth().currentUser {
+                    
+                    let user = UserService.shared.user
+                    
+                    user.awards.append(award)
+                    
+                    print("This is the current user: \(user)")
+                    
+                    let db = Firestore.firestore()
+                    
+                    let ref = db.collection("users").document(firebaseUser.uid)
+                    
+                    let awardData : [String: Any] = ["name": award.name, "difficulty": award.difficulty, "earnedImage": award.earnedImage, "unearnedImage": award.unearnedImage ]
+                    
+                    ref.updateData(["awards": FieldValue.arrayUnion([awardData])]) { error in
+                        
+                        if let error = error {
+                                print("Error adding awards: \(error.localizedDescription)")
+                                return
+                            }
+                        
+                        print("Awards added successfully")
+                        print(user.awards)
+                    }
+                    
+                }
+                
+            }
+            
+        }
     }
     
     
@@ -497,10 +598,31 @@ class ContentModel : ObservableObject {
     
     
     // MARK: Email and password validation
+    
     func isEmailOrPasswordValid(emailOrPasswor: String, pattern: String ) -> Bool {
         
         let test = NSPredicate(format: "SELF MATCHES %@", pattern)
         return test.evaluate(with: emailOrPasswor)
+    }
+    
+    // MARK: Awards Condition
+    
+    func isAwardAlreadyEarned() -> Bool {
+        
+        var alreadyEarnedAward = false
+        
+        let user = UserService.shared.user
+        
+        for award in user.awards {
+            
+            if award.name == currentModule?.category {
+                
+                alreadyEarnedAward = true
+                
+            }
+        }
+        
+        return alreadyEarnedAward
     }
     
     

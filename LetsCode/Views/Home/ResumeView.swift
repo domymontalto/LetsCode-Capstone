@@ -37,59 +37,63 @@ struct ResumeView: View {
     
     
     var body: some View {
-        
-        let module = model.modules[user.lastModule ?? 0]
-        
+                
         Group {
             
-            if user.lastLesson! > 0 {
+            if let lastModuleIndex = user.lastModule,
+               lastModuleIndex >= 0,
+               lastModuleIndex < model.modules.count {
+                let module = model.modules[lastModuleIndex]
                 
-                Button {
+                if user.lastLesson! > 0 {
                     
-                    //Preparing for ContentDetailView
-                    model.getLessons(module) {
-                        model.beginModule(module.id)
+                    Button {
                         
-                        navigationPath.append(module)
+                        //Preparing for ContentDetailView
+                        model.getLessons(module) {
+                            model.beginModule(module.id)
+                            
+                            navigationPath.append(module)
+                            
+                            resumeLessons = true
+                            showLessons = false
+                            showTest = false
+                            resumeTest = false
+                            
+                        }
                         
-                        resumeLessons = true
-                        showLessons = false
-                        showTest = false
-                        resumeTest = false
+                    } label: {
                         
+                        ResumeCard(resumeTitle: resumeTitle)
                     }
                     
-                } label: {
+                } else {
                     
-                    ResumeCard(resumeTitle: resumeTitle)
-                }
-                
-            } else {
-                
-                Button {
-                    
-                    //Preparing for TestView
-                    model.getQuestions(module) {
-                        model.beginTest(module.id)
-                        //Restart from the user's last question
-                        model.currentQuestionIndex = user.lastQuestion!
-                        model.resumeQuestion()
+                    Button {
                         
-                        navigationPath.append(module)
+                        //Preparing for TestView
+                        model.getQuestions(module) {
+                            model.beginTest(module.id)
+                            //Restart from the user's last question
+                            model.currentQuestionIndex = user.lastQuestion!
+                            model.resumeQuestion()
+                            
+                            navigationPath.append(module)
+                            
+                            resumeTest = true
+                            showLessons = false
+                            showTest = false
+                            resumeLessons = false
+                            
+                        }
                         
-                        resumeTest = true
-                        showLessons = false
-                        showTest = false
-                        resumeLessons = false
+                    } label: {
                         
+                        ResumeCard(resumeTitle: resumeTitle)
                     }
                     
-                } label: {
                     
-                    ResumeCard(resumeTitle: resumeTitle)
                 }
-
-                
             }
         }
         

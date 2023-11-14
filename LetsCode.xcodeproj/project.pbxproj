@@ -23,6 +23,10 @@
 		D34D7CAB2AE87836006F6E7A /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = D34D7CAA2AE87836006F6E7A /* FirebaseFirestore */; };
 		D377E89E2AFD436F00CCC127 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D377E89D2AFD436F00CCC127 /* HomeView.swift */; };
 		D377E8A02AFD9EA600CCC127 /* ResumeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D377E89F2AFD9EA600CCC127 /* ResumeCard.swift */; };
+		D377E8A32AFEEC7700CCC127 /* AwardsGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D377E8A22AFEEC7700CCC127 /* AwardsGalleryView.swift */; };
+		D377E8A52AFEED4F00CCC127 /* Award.swift in Sources */ = {isa = PBXBuildFile; fileRef = D377E8A42AFEED4F00CCC127 /* Award.swift */; };
+		D377E8A72AFEEDCF00CCC127 /* AwardsGallerySubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = D377E8A62AFEEDCF00CCC127 /* AwardsGallerySubview.swift */; };
+		D377E8A92AFEEE2800CCC127 /* AwardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D377E8A82AFEEE2800CCC127 /* AwardView.swift */; };
 		D39021672ACE181A00C71494 /* ContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39021662ACE181A00C71494 /* ContentModel.swift */; };
 		D390216B2ACE202400C71494 /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = D390216A2ACE202400C71494 /* Module.swift */; };
 		D390216D2ACE208D00C71494 /* Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = D390216C2ACE208D00C71494 /* Content.swift */; };
@@ -58,6 +62,10 @@
 		D34D7CA52AE876B4006F6E7A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D377E89D2AFD436F00CCC127 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		D377E89F2AFD9EA600CCC127 /* ResumeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResumeCard.swift; sourceTree = "<group>"; };
+		D377E8A22AFEEC7700CCC127 /* AwardsGalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsGalleryView.swift; sourceTree = "<group>"; };
+		D377E8A42AFEED4F00CCC127 /* Award.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Award.swift; sourceTree = "<group>"; };
+		D377E8A62AFEEDCF00CCC127 /* AwardsGallerySubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsGallerySubview.swift; sourceTree = "<group>"; };
+		D377E8A82AFEEE2800CCC127 /* AwardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardView.swift; sourceTree = "<group>"; };
 		D39021662ACE181A00C71494 /* ContentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentModel.swift; sourceTree = "<group>"; };
 		D390216A2ACE202400C71494 /* Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
 		D390216C2ACE208D00C71494 /* Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Content.swift; sourceTree = "<group>"; };
@@ -114,6 +122,7 @@
 				D306F5D72ACBA165009EF5AB /* LetsCodeApp.swift */,
 				D390215F2ACE169600C71494 /* Views */,
 				D3449A2E2AED780F00FA15F4 /* Account */,
+				D377E8A12AFEEC5400CCC127 /* Award */,
 				D39021602ACE16AE00C71494 /* ViewModels */,
 				D39021622ACE173700C71494 /* Models */,
 				D39021632ACE175200C71494 /* Resources */,
@@ -151,6 +160,16 @@
 			path = Account;
 			sourceTree = "<group>";
 		};
+		D377E8A12AFEEC5400CCC127 /* Award */ = {
+			isa = PBXGroup;
+			children = (
+				D377E8A22AFEEC7700CCC127 /* AwardsGalleryView.swift */,
+				D377E8A62AFEEDCF00CCC127 /* AwardsGallerySubview.swift */,
+				D377E8A82AFEEE2800CCC127 /* AwardView.swift */,
+			);
+			path = Award;
+			sourceTree = "<group>";
+		};
 		D390215F2ACE169600C71494 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -180,6 +199,7 @@
 				D39021702ACE20AB00C71494 /* Test.swift */,
 				D39021722ACE20BF00C71494 /* Question.swift */,
 				D3449A352AF167DC00FA15F4 /* User.swift */,
+				D377E8A42AFEED4F00CCC127 /* Award.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -321,15 +341,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D377E8A72AFEEDCF00CCC127 /* AwardsGallerySubview.swift in Sources */,
 				D3AB56F52AD1CB1100FA2DDF /* ContentViewRow.swift in Sources */,
+				D377E8A52AFEED4F00CCC127 /* Award.swift in Sources */,
 				D3449A342AED787300FA15F4 /* LaunchView.swift in Sources */,
 				D32DA7462AE05EEA00AE5976 /* TestResultView.swift in Sources */,
 				D30FFC6D2AD0A271002E764D /* HomeViewRow.swift in Sources */,
 				D3E444842AD8BC91001643A6 /* RectangleCard.swift in Sources */,
 				D3449A382AF168A500FA15F4 /* UserService.swift in Sources */,
+				D377E8A92AFEEE2800CCC127 /* AwardView.swift in Sources */,
 				D32DA7442AD9F19100AE5976 /* TestView.swift in Sources */,
 				D39021732ACE20BF00C71494 /* Question.swift in Sources */,
 				D3E4447F2AD7663E001643A6 /* CodeTextView.swift in Sources */,
+				D377E8A32AFEEC7700CCC127 /* AwardsGalleryView.swift in Sources */,
 				D377E8A02AFD9EA600CCC127 /* ResumeCard.swift in Sources */,
 				D390216B2ACE202400C71494 /* Module.swift in Sources */,
 				D306F5D82ACBA165009EF5AB /* LetsCodeApp.swift in Sources */,

@@ -190,8 +190,11 @@ struct TestView: View {
 
         } else if showResults == true {
             
+            //Check if we already earned this lesson's Award
+            let isAwardAlreadyEarned = model.isAwardAlreadyEarned()
+            
             //If showResults is true we show ther result view
-            TestResultView(navigationPath: $navigationPath)
+            TestResultView(navigationPath: $navigationPath, isAwardAlreadyEarned: isAwardAlreadyEarned)
             
         } else {
             

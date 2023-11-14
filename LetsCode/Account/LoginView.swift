@@ -19,6 +19,12 @@ struct LoginView: View {
     @State var password = ""
     @State var errorMessage: String?
     
+    @State var isEmailValid = true
+    let emailPattern = #"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"#
+    
+    @State var isPasswordValid = true
+    let passwordParrern = #"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$#!%*?&])[A-Za-z\d$@$#!%*?&]{8,}"#
+    
     var buttonText: String {
         
         if loginMode == Constants.LoginMode.login {
@@ -103,32 +109,58 @@ struct LoginView: View {
                         
                     }
                 } else {
+                    
+                    //Check if email and password are valid before creating account
+                    isEmailValid = model.isEmailOrPasswordValid(emailOrPasswor: email, pattern: emailPattern)
+                    
+                    isPasswordValid = model.isEmailOrPasswordValid(emailOrPasswor: password, pattern: passwordParrern)
+                    
+                    if isEmailValid && isPasswordValid {
                     //Create a new account
-                    Auth.auth().createUser(withEmail: email, password: password) { result, error in
-                        
-                        guard error == nil else {
+                        Auth.auth().createUser(withEmail: email, password: password) { result, error in
                             
-                            self.errorMessage = error!.localizedDescription
-                            return
+                            guard error == nil else {
+                                
+                                self.errorMessage = error!.localizedDescription
+                                return
+                            }
+                            
+                            //Clear errom message
+                            self.errorMessage = nil
+                            
+                            //Save the first name
+                            let firebaseUser = Auth.auth().currentUser
+                            let db = Firestore.firestore()
+                            let ref = db.collection("users").document(firebaseUser!.uid)
+                            
+                            email = email.lowercased()
+                            
+                            //Create empty erray of awards
+                            let awards = [Award]()
+                            
+                            ref.setData(["name": name, "email":email, "awards":awards], merge: true)
+                            
+                            //Update the user meta data
+                            let user = UserService.shared.user
+                            user.name = name
+                            user.email = email
+                            user.awards = awards
+                            
+                            //Change the view to logged in view
+                            self.model.checkLogin()
                         }
+                    
+                    } else if !isEmailValid {
                         
-                        //Clear errom message
-                        self.errorMessage = nil
+                        errorMessage = "Please insert valid email format."
+                        email = ""
                         
-                        //Save the first name
-                        let firebaseUser = Auth.auth().currentUser
-                        let db = Firestore.firestore()
-                        let ref = db.collection("users").document(firebaseUser!.uid)
+                    } else if !isPasswordValid {
                         
-                        ref.setData(["name": name], merge: true)
-                        
-                        //Update the user meta data
-                        let user = UserService.shared.user
-                        user.name = name
-                        
-                        //Change the view to logged in view
-                        self.model.checkLogin()
+                        errorMessage = "Password must be 8 characters long and include lowercase, uppercase, digit, and special character."
+                        password = ""
                     }
+                        
                     
                 }
                 

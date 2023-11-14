@@ -38,6 +38,14 @@ struct LaunchView: View {
                         }
                     }
                 
+                AwardsGalleryView()
+                    .tabItem {
+                        VStack {
+                            Image(systemName: "medal")
+                            Text("Awards")
+                        }
+                    }
+                
                 ProfileView()
                     .tabItem {
                     
@@ -52,6 +60,7 @@ struct LaunchView: View {
             }
             .onAppear {
                 model.getModules()
+                model.getAwards()
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
                 
