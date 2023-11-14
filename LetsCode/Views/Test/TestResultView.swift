@@ -23,7 +23,7 @@ struct TestResultView: View {
             return ""
         }
         
-        let pct = Double(model.numCorrect!)/Double(model.currentModule!.test.totQuestions)
+        let pct = Double(model.numCorrect ?? 0)/Double(model.currentModule!.test.totQuestions)
         
         if pct >= 0.8 {
             
@@ -33,9 +33,13 @@ struct TestResultView: View {
             }
             
             return "Awesome!"
+            
         } else if pct >= 0.5 {
+            
             return "Doing great!"
+            
         } else {
+            
             return "Keep learning."
         }
         
@@ -52,7 +56,7 @@ struct TestResultView: View {
                 .padding(.bottom, 20)
             
             //Tell the user they earned a new Award and display Award Image if they haven't already earned that Award
-            if !isAwardAlreadyEarned {
+            if !isAwardAlreadyEarned &&  updateAwards {
                 
                 Text("You earned a new Award!!!")
                     .font(.title)
@@ -67,7 +71,7 @@ struct TestResultView: View {
             
             Spacer()
             
-            Text("You got \(model.numCorrect!) out of \(model.currentModule?.test.totQuestions ?? 0) questions")
+            Text("You got \(model.numCorrect ?? 0) out of \(model.currentModule?.test.totQuestions ?? 0) questions")
             
             Spacer()
             
@@ -83,6 +87,10 @@ struct TestResultView: View {
                 }
                 
                 updateAwards = false
+                
+                model.numCorrect = nil
+                
+                user.correctAnswers = nil
                 
                 //Send the user back to the home view
                 navigationPath.removeLast(navigationPath.count)

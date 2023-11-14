@@ -86,6 +86,7 @@ class ContentModel : ObservableObject {
             user.lastModule = currentModuleIndex
             user.lastLesson = currentLessonIndex
             user.lastQuestion = currentQuestionIndex
+            user.correctAnswers = numCorrect
             
             if writeToDatabase {
                 
@@ -95,7 +96,8 @@ class ContentModel : ObservableObject {
                 
                 ref.setData(["lastModule": user.lastModule ?? NSNull(),
                              "lastLesson": user.lastLesson ?? NSNull(),
-                             "lastQuestion": user.lastQuestion ?? NSNull()],merge: true)
+                             "lastQuestion": user.lastQuestion ?? NSNull(),
+                             "correctAnswers": user.correctAnswers ?? NSNull()],merge: true)
             }
             
         }
@@ -129,6 +131,9 @@ class ContentModel : ObservableObject {
             user.lastModule = data?["lastModule"] as? Int
             user.lastLesson = data?["lastLesson"] as? Int
             user.lastQuestion = data?["lastQuestion"] as? Int
+            user.correctAnswers = data?["correctAnswers"] as? Int
+            
+            self.numCorrect = user.correctAnswers
             
             //Decode the awards array
             if let awardsData = data?["awards"] as? [[String: Any]] {

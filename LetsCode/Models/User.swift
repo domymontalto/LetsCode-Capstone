@@ -14,5 +14,6 @@ class User {
     var lastModule: Int?
     var lastLesson: Int?
     var lastQuestion: Int?
+    var correctAnswers:Int?
     var awards: [Award] = [Award]()
 }
