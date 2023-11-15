@@ -18,7 +18,7 @@ struct AwardsGallerySubview: View {
 
         GeometryReader { proxy in
             
-            ScrollView(showsIndicators: false){
+            ScrollView {
                 
                 LazyVGrid(columns: [GridItem(spacing: 10), GridItem(spacing: 10), GridItem(spacing: 10)], spacing: 10) {
                     
@@ -47,6 +47,8 @@ struct AwardsGallerySubview: View {
                     
                 }
             }
+            .scrollIndicators(.hidden)
+            
         }
         .sheet(isPresented: $sheetVisible) {
             AwardView(selectedAward: $selectedAward, sheetVisible: $sheetVisible)

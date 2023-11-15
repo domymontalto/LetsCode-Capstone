@@ -15,7 +15,7 @@ struct ContentView: View {
     
     var body: some View {
 
-        ScrollView(showsIndicators: false) {
+        ScrollView {
 
             LazyVStack {
                 
@@ -45,6 +45,7 @@ struct ContentView: View {
             .navigationTitle("Learn \(model.currentModule?.category ?? "")")
             
         }
+        .scrollIndicators(.hidden)
         
     }
 }

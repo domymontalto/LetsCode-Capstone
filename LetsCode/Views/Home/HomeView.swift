@@ -52,7 +52,7 @@ struct HomeView: View {
                         .padding(.leading)
                 }
                 
-                ScrollView(showsIndicators: false) {
+                ScrollView {
                     
                     LazyVStack {
                         
@@ -111,6 +111,7 @@ struct HomeView: View {
                     .buttonStyle(.plain)
                     .padding()
                 }
+                .scrollIndicators(.hidden)
                 
             }
             .navigationDestination(for: Module.self) { module in

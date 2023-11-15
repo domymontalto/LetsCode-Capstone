@@ -18,6 +18,7 @@ struct LoginView: View {
     @State var name = ""
     @State var password = ""
     @State var errorMessage: String?
+    @State var showForgotPassword = false
     
     @State var isEmailValid = true
     let emailPattern = #"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"#
@@ -83,6 +84,25 @@ struct LoginView: View {
                     Text(errorMessage!)
                 }
                 
+                if loginMode == Constants.LoginMode.login {
+                    
+                    HStack{
+                        
+                        Spacer()
+                        
+                        Button {
+                            
+                            //Put the logic to open the ForgotPasswordView
+                            showForgotPassword = true
+                            
+                        } label: {
+                            Text("Forgot Password?")
+                                .fontWeight(.bold)
+                        }
+                    }
+                    .padding(7)
+                }
+
             }
             
             //Button
@@ -172,18 +192,21 @@ struct LoginView: View {
                         .frame(height: 40)
                     
                     Text(buttonText)
+                        .fontWeight(.bold)
                         .foregroundStyle(.white)
                 }
                 
             }
-            
-            Spacer()
-            
+            .padding()
             
             
         }
         .padding(.horizontal, 40)
         .textFieldStyle(.roundedBorder)
+        .sheet(isPresented: $showForgotPassword) {
+            
+            ForgotPasswordView(showForgotPassword: $showForgotPassword)
+        }
         
         
     }
