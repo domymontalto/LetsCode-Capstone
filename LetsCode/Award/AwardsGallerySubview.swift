@@ -36,14 +36,11 @@ struct AwardsGallerySubview: View {
                             ZStack {
                                 RectangleCard(color: .white)
                                     .padding()
-                                    //.frame(maxWidth: isLandscape ? 100 : 150)
-                                //.frame(maxWidth: maxWidthBasedOnSizeClass(proxy: proxy))
                                 
                                 Image(award)
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
                                     .frame(maxWidth: (proxy.size.width - 20) / 3)
-                                    //.frame(maxWidth: maxWidthBasedOnSizeClass(proxy: proxy))
                                     .clipped()
                                     .padding()
                                     .onTapGesture {

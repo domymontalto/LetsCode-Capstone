@@ -38,7 +38,7 @@ struct ContentDetailView: View {
                     .fontWeight(.medium)
             }
             .font(.system(size: 15))
-            .padding(20)
+            .padding(isLandscape ? 5 : 20)
             
             //Only show video if we get a valid URL
             if url != nil {
