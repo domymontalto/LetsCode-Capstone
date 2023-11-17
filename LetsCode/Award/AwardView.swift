@@ -33,7 +33,7 @@ struct AwardView: View {
                     } label: {
                         Image(systemName: "x.circle")
                             .scaleEffect(2)
-                            .foregroundColor(.black)
+                            .foregroundStyle(Color(.black))
                     }
                     .padding()
                     

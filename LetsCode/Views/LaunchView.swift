@@ -15,13 +15,18 @@ struct LaunchView: View {
         
         if model.loggedIn == false {
             
-            //Show the login view
-            LoginView()
-                .onAppear {
-                    //Check if the user is logged in or out
-                    model.checkLogin()
-                    
-                }
+            ScrollView {
+                
+                //Show the login view
+                LoginView()
+                    .onAppear {
+                        //Check if the user is logged in or out
+                        model.checkLogin()
+                        
+                    }
+                
+            }
+            .scrollIndicators(.hidden)
             
         } else {
             
@@ -54,6 +59,9 @@ struct LaunchView: View {
                             
                             Text("Profile")
                         }
+                    }
+                    .onAppear {
+                        model.isPlaying = false
                     }
                 
                 

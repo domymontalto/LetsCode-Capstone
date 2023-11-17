@@ -52,7 +52,7 @@ struct AwardsGalleryView: View {
                         .font(.headline)
                         .fontWeight(.semibold)
                     
-                    AwardsGallerySubview(awardsToDisplay: $earnedAwards)
+                    AwardsGallerySubview(awardsToDisplay: $earnedAwards, clickable: .constant(true))
                 }
                 .padding(.top)
                 
@@ -63,8 +63,7 @@ struct AwardsGalleryView: View {
                         .font(.headline)
                         .fontWeight(.semibold)
                     
-                    AwardsGallerySubview(awardsToDisplay: $unearnedAwards)
-                    
+                    AwardsGallerySubview(awardsToDisplay: $unearnedAwards, clickable: .constant(false))
                 }
                 .padding(.top)
                  
@@ -77,24 +76,20 @@ struct AwardsGalleryView: View {
         .padding(.horizontal)
     }
     
-    
     func populateAwards() {
         
+        // Reset arrays and flag
+        earnedAwards = []
+        unearnedAwards = []
+        model.userHasAwards = false
+
         for modelAward in model.awards {
-            
-            for userAward in user.awards {
-                
-                //If user has a specific Award add it to earnedAwards array
-                if userAward.name == modelAward.name {
-                    
-                    earnedAwards.append(userAward.earnedImage)
-                    model.userHasAwards = true
-                    
-                } else {
-                    
-                    //If user does not have a specific Award add it to unearnedAwards array
-                    unearnedAwards.append(modelAward.unearnedImage)
-                }
+            // Check if the user has earned this award
+            if user.awards.contains(where: { $0.name == modelAward.name }) {
+                earnedAwards.append(modelAward.earnedImage)
+                model.userHasAwards = true
+            } else {
+                unearnedAwards.append(modelAward.unearnedImage)
             }
         }
     }

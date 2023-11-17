@@ -14,7 +14,7 @@ struct RectangleCard: View {
     var body: some View {
         
         Rectangle()
-            .foregroundColor(color)
+            .foregroundStyle(Color(color))
             .clipShape(RoundedRectangle(cornerRadius: 10))
             .shadow(radius: 5)
         

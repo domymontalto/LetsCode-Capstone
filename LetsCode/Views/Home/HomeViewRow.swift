@@ -9,23 +9,27 @@ import SwiftUI
 
 struct HomeViewRow: View {
     
+    @Environment(\.verticalSizeClass) var verticalSizeClass
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
     var image: String
     var title: String
     var description: String
     var count: String
     var time: String
     
-    
     var body: some View {
         
+        let isLandscape = horizontalSizeClass == .regular && verticalSizeClass == .compact
+
         ZStack {
             
             Rectangle()
-                .foregroundColor(.white)
+                .foregroundStyle(Color(.white))
                 .cornerRadius(10)
                 .shadow(radius: 5)
-                .aspectRatio(CGSize(width: 335, height: 175), contentMode: .fit)
-            
+                .aspectRatio(isLandscape ? CGSize(width: 335, height: 80) : CGSize(width: 335, height: 175), contentMode: .fit)
+
             HStack {
                 
                 //Image

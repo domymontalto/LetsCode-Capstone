@@ -173,7 +173,7 @@ struct TestView: View {
                             .frame(height: 48)
                         
                         Text(buttonText)
-                            .foregroundColor(.white)
+                            .foregroundStyle(Color(.white))
                             .fontWeight(.bold)
                         
                     }

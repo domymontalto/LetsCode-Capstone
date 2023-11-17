@@ -104,7 +104,7 @@ struct TestResultView: View {
                     
                     Text("Complete")
                         .fontWeight(.bold)
-                        .foregroundColor(.white)
+                        .foregroundStyle(Color(.white))
                 }
                 
             }

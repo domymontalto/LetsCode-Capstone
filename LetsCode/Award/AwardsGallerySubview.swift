@@ -9,41 +9,93 @@ import SwiftUI
 
 struct AwardsGallerySubview: View {
     
+    @Environment(\.verticalSizeClass) var verticalSizeClass
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
     @Binding var awardsToDisplay: [String]
+    @Binding var clickable: Bool
     
     @State var sheetVisible = false
     @State var selectedAward = ""
     
     var body: some View {
-
+        
+        let isLandscape = horizontalSizeClass == .regular && verticalSizeClass == .compact
+        
         GeometryReader { proxy in
             
             ScrollView {
                 
-                LazyVGrid(columns: [GridItem(spacing: 10), GridItem(spacing: 10), GridItem(spacing: 10)], spacing: 10) {
+                if isLandscape == false {
                     
-                    //forEach award make a cliccable image in a rectangle
-                    ForEach($awardsToDisplay, id: \.self) { $award in
+                    LazyVGrid(columns: [GridItem(spacing: 10), GridItem(spacing: 10), GridItem(spacing: 10)], spacing: 10) {
                         
-                        ZStack {
-                            RectangleCard(color: .white)
-                                .padding()
+                        //forEach award make a cliccable image in a rectangle
+                        ForEach($awardsToDisplay, id: \.self) { $award in
                             
-                            Image(award)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(maxWidth: (proxy.size.width - 20) / 3)
-                                .clipped()
-                                .padding()
-                                .onTapGesture {
-                                    selectedAward = award
-                                    sheetVisible = true
-                                }
+                            ZStack {
+                                RectangleCard(color: .white)
+                                    .padding()
+                                    //.frame(maxWidth: isLandscape ? 100 : 150)
+                                //.frame(maxWidth: maxWidthBasedOnSizeClass(proxy: proxy))
+                                
+                                Image(award)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(maxWidth: (proxy.size.width - 20) / 3)
+                                    //.frame(maxWidth: maxWidthBasedOnSizeClass(proxy: proxy))
+                                    .clipped()
+                                    .padding()
+                                    .onTapGesture {
+                                        selectedAward = award
+                                        
+                                        if clickable {
+                                            
+                                            sheetVisible = true
+                                        }
+                                    }
+                                
+                            }
+                            .shadow(radius: 5)
                             
                         }
-                        .shadow(radius: 10)
                         
                     }
+                    
+                } else {
+                    
+                    LazyVGrid(columns: [GridItem(spacing: 10), GridItem(spacing: 10), GridItem(spacing: 10), GridItem(spacing: 10), GridItem(spacing: 10), GridItem(spacing: 10)], spacing: 10) {
+                        
+                        //forEach award make a cliccable image in a rectangle
+                        ForEach($awardsToDisplay, id: \.self) { $award in
+                            
+                            ZStack {
+                                RectangleCard(color: .white)
+                                    .padding()
+                                    .frame(maxWidth: 90)
+                                
+                                Image(award)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(maxWidth: (proxy.size.width - 110) / 12)
+                                    .clipped()
+                                    .padding()
+                                    .onTapGesture {
+                                        selectedAward = award
+                                        
+                                        if clickable {
+                                            
+                                            sheetVisible = true
+                                        }
+                                    }
+                                
+                            }
+                            .shadow(radius: 5)
+                            
+                        }
+                        
+                    }
+                    
                     
                 }
             }
@@ -55,6 +107,7 @@ struct AwardsGallerySubview: View {
         }
         
     }
+    
 }
 
 //#Preview {

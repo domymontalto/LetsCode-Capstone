@@ -209,7 +209,7 @@ struct ProfileView: View {
                             
                             Text("Change Info")
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundStyle(Color(.white))
                         }
                         .padding(.top, 20)
                     }
@@ -227,13 +227,15 @@ struct ProfileView: View {
                         model.checkLogin()
                         
                     } label: {
+                        
                         ZStack {
+                            
                             RectangleCard(color: .white)
                                 .frame(height: 40)
                             
                             Text("Sign Out")
                                 .fontWeight(.bold)
-                                .foregroundColor(.red)
+                                .foregroundStyle(Color(.red))
                         }
                     }
                     
@@ -244,15 +246,15 @@ struct ProfileView: View {
             }
             .scrollIndicators(.hidden)
             .safeAreaInset(edge: .bottom) {
-                       // Provide an empty view with some height to act as a spacer
-                       // Adjust the height as needed to create the desired spacing
-                       Color.clear.frame(height: 20)
-                   }
-                   .navigationTitle("Profile")
-                   .navigationBarTitleDisplayMode(.inline)
-
+                // Provide an empty view with some height to act as a spacer
+                // Adjust the height as needed to create the desired spacing
+                Color.clear.frame(height: 20)
+            }
+            .navigationTitle("Profile")
+            .navigationBarTitleDisplayMode(.inline)
+            
         }
-  
+        
     }
     
     func changePassword(email: String, currentPassword: String, newPassword: String, completion: @escaping (Error?) -> Void) {

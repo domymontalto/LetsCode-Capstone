@@ -17,69 +17,74 @@ struct ForgotPasswordView: View {
     
     var body: some View {
         
-        VStack(alignment: .leading) {
+        ScrollView {
             
-            HStack {
+            VStack(alignment: .leading) {
+                
+                HStack {
+                    
+                    Spacer()
+                    
+                    Button {
+                        
+                        showForgotPassword = false
+                        
+                    } label: {
+                        
+                        Image(systemName: "x.circle")
+                            .scaleEffect(2)
+                            .foregroundStyle(Color(.black))
+                    }
+                }
+                
+                Text("Reset Password")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
                 
                 Spacer()
                 
+                TextField("Email", text: $email)
+                
+                if errorMessage != nil {
+                    
+                    Text(errorMessage!)
+                        .padding(10)
+                }
+                
                 Button {
                     
-                    showForgotPassword = false
+                    Auth.auth().sendPasswordReset(withEmail: email.lowercased()) { error in
+                        
+                        if let error = error {
+                            
+                            print(error.localizedDescription)
+                        }
+                        
+                        errorMessage = "You will receive an email to reset your pasword"
+                    }
                     
                 } label: {
                     
-                    Image(systemName: "x.circle")
-                        .scaleEffect(2)
-                        .foregroundStyle(Color(.black))
-                }
-            }
-            
-            Text("Reset Password")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-            
-            Spacer()
-            
-            TextField("Email", text: $email)
-            
-            if errorMessage != nil {
-                
-                Text(errorMessage!)
-                    .padding(10)
-            }
-            
-            Button {
-                
-                Auth.auth().sendPasswordReset(withEmail: email.lowercased()) { error in
-                    
-                    if let error = error {
+                    ZStack {
                         
-                        print(error.localizedDescription)
+                        RectangleCard(color: .blue)
+                            .frame(height: 48)
+                        
+                        Text("Send Password Reset")
+                            .fontWeight(.bold)
+                            .foregroundStyle(Color(.white))
                     }
-                    
-                    errorMessage = "You will receive an email to reset your pasword"
                 }
+                .padding(.top, 20)
                 
-            } label: {
+                Spacer()
                 
-                ZStack {
-                    
-                    RectangleCard(color: .blue)
-                        .frame(height: 48)
-                    
-                    Text("Send Password Reset")
-                        .fontWeight(.bold)
-                        .foregroundStyle(Color(.white))
-                }
             }
-            .padding(.top, 20)
-            
-            Spacer()
+            .textFieldStyle(.roundedBorder)
+            .padding()
             
         }
-        .textFieldStyle(.roundedBorder)
-        .padding()
+        .scrollIndicators(.hidden)
         
     }
 }
