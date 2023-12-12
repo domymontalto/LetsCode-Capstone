@@ -262,11 +262,6 @@ struct ProfileView: View {
                 }
                     
                 .scrollIndicators(.hidden)
-                //            .safeAreaInset(edge: .bottom) {
-                //                // Provide an empty view with some height to act as a spacer
-                //                // Adjust the height as needed to create the desired spacing
-                //                Color.clear.frame(height: 20)
-                //            }
                 .navigationTitle("Profile")
                 .navigationBarTitleDisplayMode(.inline)
                 .edgesIgnoringSafeArea(.top)
