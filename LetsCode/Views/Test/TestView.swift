@@ -126,6 +126,7 @@ struct TestView: View {
                     .buttonStyle(.plain)
                     
                 }
+                .scrollIndicators(.hidden)
                 
                 //Submit Button
                 Button {

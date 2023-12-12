@@ -53,6 +53,7 @@ struct TestResultView: View {
             
             Text(resultHeading)
                 .font(.title)
+                .fontWeight(.bold)
                 .padding(.bottom, 20)
             
             //Tell the user they earned a new Award and display Award Image if they haven't already earned that Award

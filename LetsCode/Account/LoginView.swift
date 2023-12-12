@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Firebase
+import FirebaseFirestore
 import FirebaseAuth
 
 struct LoginView: View {
@@ -45,13 +46,16 @@ struct LoginView: View {
             Spacer()
             
             //Logo
-            Image(systemName: "book")
+            Image("Logo")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(maxWidth: 150)
+                .clipShape(RoundedRectangle(cornerRadius: 20))
             
             //Title
             Text("LetsCode")
+                .font(.title2)
+                .fontWeight(.bold)
             
             Spacer()
             

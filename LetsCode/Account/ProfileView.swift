@@ -6,8 +6,9 @@
 //
 
 import SwiftUI
-import FirebaseAuth
 import Firebase
+import FirebaseFirestore
+import FirebaseAuth
 
 struct ProfileView: View {
     
@@ -49,209 +50,228 @@ struct ProfileView: View {
                 email = data?["email"] as? String ?? ""
             }
             
-            ScrollView {
-                
+            GeometryReader { geometry in
+                                    
                 VStack(spacing: 10) {
-                    Spacer()
-                    
-                    Text("Hi, " + user.name)
-                        .font(.largeTitle)
-                        .fontWeight(.semibold)
-                    
-                    Spacer()
-                    
-                    VStack(alignment: .leading) {
-                        
-                        Text("User Name:")
-                        TextField(username, text: $newUsername)
-                            .textFieldStyle(.roundedBorder)
-                        
-                        Text("Email:")
-                        TextField(email, text: $newEmail)
-                            .textFieldStyle(.roundedBorder)
-                        
-                        Text("Current Password")
-                        SecureField("",text: $currentPassword)
-                            .textFieldStyle(.roundedBorder)
-                        
-                        Text("New Password")
-                        SecureField("",text: $newPassword)
-                            .textFieldStyle(.roundedBorder)
-                        
-                        if errorMessage != nil {
-                            Text(errorMessage!)
-                                .padding(10)
+                                              
+                        VStack {
+                            
+                            Text("Hi, " + user.name)
+                                .font(.largeTitle)
+                                .fontWeight(.semibold)
+                                .frame(width: 415 ,alignment: .leading)
+                                .padding(.top, 40)
+                                .padding(.bottom, 50)
+                                .padding(.leading, 15)
+                                
                         }
+                        .background(Color(red: 40/255.0, green: 143/255.0, blue: 181/255.0))
+                        .padding(.top, geometry.safeAreaInsets.top)
                         
-                    }
-                    
-                    Spacer()
-                    
-                    
-                    
-                    Button {
-                        //Removing whitespaces from newUsername, newEmail, currentPassword, and newPassword
-                        let trimmedNewUsername = newUsername.trimmingCharacters(in: .whitespacesAndNewlines)
-                        var trimmedNewEmail = newEmail.trimmingCharacters(in: .whitespacesAndNewlines)
-                        let trimmedCurrentPassword = currentPassword.trimmingCharacters(in: .whitespacesAndNewlines)
-                        let trimmedNewPassword = newPassword.trimmingCharacters(in: .whitespacesAndNewlines)
+                        Spacer()
                         
-                        //Checking if user is modifying at least one field
-                        if trimmedNewUsername.isEmpty && trimmedNewEmail.isEmpty && trimmedCurrentPassword.isEmpty && trimmedNewPassword.isEmpty {
-                            
-                            errorMessage = "Please change info."
-                        }
+                        ScrollView {
                         
-                        //Checking if a user is inserting a new username before modifying the existing one
-                        if !trimmedNewUsername.isEmpty && trimmedNewUsername != username {
+                        VStack(alignment: .leading) {
                             
-                            //Changing name both locally and on Firestore database
-                            user.name = trimmedNewUsername
-                            let ref = db.collection("users").document(firebaseUser!.uid)
-                            ref.setData(["name": user.name], merge: true)
+                            Text("User Name:")
+                            TextField(username, text: $newUsername)
+                                .textFieldStyle(.roundedBorder)
                             
-                            newUsername = ""
+                            Text("Email:")
+                            TextField(email, text: $newEmail)
+                                .textFieldStyle(.roundedBorder)
                             
-                            // Clear error message
-                            self.errorMessage = nil
-                        }
-                        
-                        
-                        //Check if email is in form of at least a@a.it
-                        isEmailValid = model.isEmailOrPasswordValid(emailOrPasswor: trimmedNewEmail, pattern: emailPattern)
-                        
-                        if isEmailValid {
+                            Text("Current Password:")
+                            SecureField("",text: $currentPassword)
+                                .textFieldStyle(.roundedBorder)
                             
-                            //Checking if a user is inserting a new email before modifying the existing one
-                            if !trimmedNewEmail.isEmpty && trimmedNewEmail != email {
-                                
-                                trimmedNewEmail = trimmedNewEmail.lowercased()
-                                
-                                //Changing email in FirebaseAuth
-                                firebaseUser!.updateEmail(to: trimmedNewEmail) { error in
-                                    
-                                    if let error = error {
-                                        
-                                        print(error.localizedDescription)
-                                        
-                                        errorMessage = "You need to Log in again with your current email before changing your email."
-                                        newEmail = ""
-                                        
-                                    } else {
-                                        
-                                        //Changing email both locally and on Firestore database
-                                        user.email = trimmedNewEmail
-                                        let ref = db.collection("users").document(firebaseUser!.uid)
-                                        ref.setData(["email": user.email], merge: true)
-                                        
-                                        newEmail = ""
-                                        
-                                        // Clear error message
-                                        self.errorMessage = nil
-                                    }
-                                    
-                                }
-                                
-                                
-                            }
-                        } else if !trimmedNewEmail.isEmpty  {
-                            errorMessage = "Please insert valid email"
-                            newEmail = ""
-                        }
-                        
-                        //Checking if a user is inserting both currentPassword and newPassword
-                        if !trimmedCurrentPassword.isEmpty && !trimmedNewPassword.isEmpty {
+                            Text("New Password:")
+                            SecureField("",text: $newPassword)
+                                .textFieldStyle(.roundedBorder)
                             
-                            // Clear error message
-                            self.errorMessage = nil
-                            
-                            //Check if password is secured
-                            isPasswordValid = model.isEmailOrPasswordValid(emailOrPasswor: trimmedNewPassword, pattern: passwordParrern)
-                            
-                            if isPasswordValid {
-                                
-                                changePassword(email: email, currentPassword: trimmedCurrentPassword, newPassword: trimmedNewPassword) { error in
-                                    
-                                    if error != nil {
-                                        errorMessage = "Error " + (error?.localizedDescription ?? "").lowercased()
-                                        
-                                    }
-                                    else {
-                                        
-                                        errorMessage = "Password change successfully."
-                                        currentPassword = ""
-                                        newPassword = ""
-                                    }
-                                }
-                                
-                            } else {
-                                
-                                errorMessage = "New password must be 8 characters long and include lowercase, uppercase, digit, and special character."
-                                currentPassword = ""
-                                newPassword = ""
+                            if errorMessage != nil {
+                                Text(errorMessage!)
+                                    .padding(10)
                             }
                             
-                        } else if !trimmedNewPassword.isEmpty && trimmedCurrentPassword.isEmpty {
-                            
-                            errorMessage = "Please insert Current Password"
-                            
-                        } else if !trimmedCurrentPassword.isEmpty && trimmedNewEmail.isEmpty {
-                            
-                            errorMessage = "Please insert New Password"
-                            
                         }
                         
                         
-                    } label: {
-                        ZStack {
-                            RectangleCard(color: .blue)
-                                .frame(height: 40)
+                        
+                        Spacer()
+                        
+                        
+                        
+                        Button {
+                            //Removing whitespaces from newUsername, newEmail, currentPassword, and newPassword
+                            let trimmedNewUsername = newUsername.trimmingCharacters(in: .whitespacesAndNewlines)
+                            var trimmedNewEmail = newEmail.trimmingCharacters(in: .whitespacesAndNewlines)
+                            let trimmedCurrentPassword = currentPassword.trimmingCharacters(in: .whitespacesAndNewlines)
+                            let trimmedNewPassword = newPassword.trimmingCharacters(in: .whitespacesAndNewlines)
                             
-                            Text("Change Info")
-                                .fontWeight(.bold)
-                                .foregroundStyle(Color(.white))
+                            //Checking if user is modifying at least one field
+                            if trimmedNewUsername.isEmpty && trimmedNewEmail.isEmpty && trimmedCurrentPassword.isEmpty && trimmedNewPassword.isEmpty {
+                                
+                                errorMessage = "Please change info."
+                            }
+                            
+                            //Checking if a user is inserting a new username before modifying the existing one
+                            if !trimmedNewUsername.isEmpty && trimmedNewUsername != username {
+                                
+                                //Changing name both locally and on Firestore database
+                                user.name = trimmedNewUsername
+                                let ref = db.collection("users").document(firebaseUser!.uid)
+                                ref.setData(["name": user.name], merge: true)
+                                
+                                newUsername = ""
+                                
+                                // Clear error message
+                                self.errorMessage = nil
+                            }
+                            
+                            
+                            //Check if email is in form of at least a@a.it
+                            isEmailValid = model.isEmailOrPasswordValid(emailOrPasswor: trimmedNewEmail, pattern: emailPattern)
+                            
+                            if isEmailValid {
+                                
+                                //Checking if a user is inserting a new email before modifying the existing one
+                                if !trimmedNewEmail.isEmpty && trimmedNewEmail != email {
+                                    
+                                    trimmedNewEmail = trimmedNewEmail.lowercased()
+                                    
+                                    //Changing email in FirebaseAuth
+                                    firebaseUser!.updateEmail(to: trimmedNewEmail) { error in
+                                        
+                                        if let error = error {
+                                            
+                                            print(error.localizedDescription)
+                                            
+                                            errorMessage = "You need to Log in again with your current email before changing your email."
+                                            newEmail = ""
+                                            
+                                        } else {
+                                            
+                                            //Changing email both locally and on Firestore database
+                                            user.email = trimmedNewEmail
+                                            let ref = db.collection("users").document(firebaseUser!.uid)
+                                            ref.setData(["email": user.email], merge: true)
+                                            
+                                            newEmail = ""
+                                            
+                                            // Clear error message
+                                            self.errorMessage = nil
+                                        }
+                                        
+                                    }
+                                    
+                                    
+                                }
+                            } else if !trimmedNewEmail.isEmpty  {
+                                errorMessage = "Please insert valid email"
+                                newEmail = ""
+                            }
+                            
+                            //Checking if a user is inserting both currentPassword and newPassword
+                            if !trimmedCurrentPassword.isEmpty && !trimmedNewPassword.isEmpty {
+                                
+                                // Clear error message
+                                self.errorMessage = nil
+                                
+                                //Check if password is secured
+                                isPasswordValid = model.isEmailOrPasswordValid(emailOrPasswor: trimmedNewPassword, pattern: passwordParrern)
+                                
+                                if isPasswordValid {
+                                    
+                                    changePassword(email: email, currentPassword: trimmedCurrentPassword, newPassword: trimmedNewPassword) { error in
+                                        
+                                        if error != nil {
+                                            errorMessage = "Error " + (error?.localizedDescription ?? "").lowercased()
+                                            
+                                        }
+                                        else {
+                                            
+                                            errorMessage = "Password change successfully."
+                                            currentPassword = ""
+                                            newPassword = ""
+                                        }
+                                    }
+                                    
+                                } else {
+                                    
+                                    errorMessage = "New password must be 8 characters long and include lowercase, uppercase, digit, and special character."
+                                    currentPassword = ""
+                                    newPassword = ""
+                                }
+                                
+                            } else if !trimmedNewPassword.isEmpty && trimmedCurrentPassword.isEmpty {
+                                
+                                errorMessage = "Please insert Current Password"
+                                
+                            } else if !trimmedCurrentPassword.isEmpty && trimmedNewEmail.isEmpty {
+                                
+                                errorMessage = "Please insert New Password"
+                                
+                            }
+                            
+                            
+                        } label: {
+                            ZStack {
+                                RectangleCard(color: .blue)
+                                    .frame(height: 40)
+                                
+                                Text("Change Info")
+                                    .fontWeight(.bold)
+                                    .foregroundStyle(Color(.white))
+                            }
+                            .padding(.top, 20)
+                            .padding(.horizontal, 10)
                         }
-                        .padding(.top, 20)
+                        
+                        
+                        //Sign out the user
+                        Button {
+                            
+                            //Save data to database before sign out
+                            model.saveData(writeToDatabase: true)
+                            
+                            try! Auth.auth().signOut()
+                            
+                            //Change to logged out view
+                            model.checkLogin()
+                            
+                        } label: {
+                            
+                            ZStack {
+                                
+                                RectangleCard(color: .white)
+                                    .frame(height: 40)
+                                
+                                Text("Sign Out")
+                                    .fontWeight(.bold)
+                                    .foregroundStyle(Color(.red))
+                            }
+                        }
+                        .padding(.horizontal, 10)
+                        
                     }
-                    
-                    
-                    //Sign out the user
-                    Button {
-                        
-                        //Save data to database before sign out
-                        model.saveData(writeToDatabase: true)
-                        
-                        try! Auth.auth().signOut()
-                        
-                        //Change to logged out view
-                        model.checkLogin()
-                        
-                    } label: {
-                        
-                        ZStack {
-                            
-                            RectangleCard(color: .white)
-                                .frame(height: 40)
-                            
-                            Text("Sign Out")
-                                .fontWeight(.bold)
-                                .foregroundStyle(Color(.red))
-                        }
-                    }
+                    .padding(.horizontal, 10)
+                    .padding(.bottom, 20)
                     
                 }
-                .padding(.horizontal)
-                .padding(.bottom, 20)
-                
+                    
+                .scrollIndicators(.hidden)
+                //            .safeAreaInset(edge: .bottom) {
+                //                // Provide an empty view with some height to act as a spacer
+                //                // Adjust the height as needed to create the desired spacing
+                //                Color.clear.frame(height: 20)
+                //            }
+                .navigationTitle("Profile")
+                .navigationBarTitleDisplayMode(.inline)
+                .edgesIgnoringSafeArea(.top)
             }
-            .scrollIndicators(.hidden)
-            .safeAreaInset(edge: .bottom) {
-                // Provide an empty view with some height to act as a spacer
-                // Adjust the height as needed to create the desired spacing
-                Color.clear.frame(height: 20)
-            }
-            .navigationTitle("Profile")
-            .navigationBarTitleDisplayMode(.inline)
+            
             
         }
         

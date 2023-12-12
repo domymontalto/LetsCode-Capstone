@@ -40,18 +40,27 @@ struct HomeView: View {
             
             VStack(alignment: .leading) {
                 
-                if user.lastLesson != nil && user.lastLesson! > 0 || user.lastQuestion != nil && user.lastQuestion! > 0 {
+                VStack(alignment: .leading) {
                     
-                    //Show the resume view
-                    ResumeView(navigationPath: $navigationPath, showLessons: $showLessons, showTest: $showTest, resumeLessons: $resumeLessons, resumeTest: $resumeTest)
-                        .padding([.horizontal, .top])
+                    if user.lastLesson != nil && user.lastLesson! > 0 || user.lastQuestion != nil && user.lastQuestion! > 0 {
+                        
+                        //Show the resume view
+                        ResumeView(navigationPath: $navigationPath, showLessons: $showLessons, showTest: $showTest, resumeLessons: $resumeLessons, resumeTest: $resumeTest)
+                            .padding([.horizontal, .top])
                     
-                } else {
+                        
+                    } else {
+                        
+                        Text("What do you want to do today?")
+                            .padding(.leading)
+                            .frame(width: 430, alignment: .leading)
+                                                
+                    }
                     
-                    Text("What do you want to do today?")
-                        .padding(.leading)
                 }
-                
+                .padding(.bottom, 20)
+                .background(Color(red: 40/255.0, green: 143/255.0, blue: 181/255.0))
+
                 ScrollView {
                     
                     LazyVStack {
@@ -77,7 +86,7 @@ struct HomeView: View {
                                 } label: {
                                     
                                     //Learn Card
-                                    HomeViewRow(image: module.content.image, title: "Learn \(module.category)", description: module.content.description, count: "\(module.content.totLessons) Lessons ", time: module.content.time)
+                                    HomeViewRow(image: module.content.image, title: "Learn \(module.category)", description: module.content.description, count: "\(module.content.totLessons) lessons ", time: module.content.time)
                                 }
                                 .padding(.top, 12)
                                 
@@ -101,7 +110,7 @@ struct HomeView: View {
                                 } label: {
                                     
                                     //Test Card
-                                    HomeViewRow(image: module.test.image, title: "\(module.category) Test", description: module.test.description, count: "\(module.test.totQuestions) Lessons ", time: module.test.time)
+                                    HomeViewRow(image: module.test.image, title: "\(module.category) Test", description: module.test.description, count: "\(module.test.totQuestions) questions ", time: module.test.time)
                                 }
                                 
                             }
@@ -114,6 +123,7 @@ struct HomeView: View {
                 .scrollIndicators(.hidden)
                 
             }
+
             .navigationDestination(for: Module.self) { module in
                 
                 if showLessons {

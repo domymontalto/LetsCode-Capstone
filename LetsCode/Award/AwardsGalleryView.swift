@@ -19,11 +19,17 @@ struct AwardsGalleryView: View {
         
         VStack(alignment: .leading) {
             
-            Text("Awards")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-                .padding(.top, 40)
-                .padding(.horizontal)
+            VStack {
+                
+                Text("Awards")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .padding(.top, 40)
+                    .padding(.horizontal)
+            }
+            .frame(width: 430, alignment: .leading)
+            .padding(.bottom, 50)
+            .background(Color(red: 40/255.0, green: 143/255.0, blue: 181/255.0))
             
             //Tell user what to do to earn Awards if they don't have any
             if model.userHasAwards == false {
@@ -32,13 +38,10 @@ struct AwardsGalleryView: View {
                 
                 Text("To start earning Awards, learn and complete the test for a language with at least 80%!")
                     .multilineTextAlignment(.center)
-                    .padding()
+                    .padding(20)
                     .font(.title)
                     .fontWeight(.semibold)
                     .lineSpacing(15)
-
-                
-                Spacer()
                 
                 Spacer()
                 
@@ -55,6 +58,7 @@ struct AwardsGalleryView: View {
                     AwardsGallerySubview(awardsToDisplay: $earnedAwards, clickable: .constant(true))
                 }
                 .padding(.top)
+                .padding(.leading)
                 
                 //Show all the unearned Awards
                 VStack(alignment: .leading) {
@@ -66,10 +70,12 @@ struct AwardsGalleryView: View {
                     AwardsGallerySubview(awardsToDisplay: $unearnedAwards, clickable: .constant(false))
                 }
                 .padding(.top)
+                .padding(.leading)
                  
             }
             
         }
+        .frame(maxWidth: .infinity)
         .onAppear(perform: {
             self.populateAwards()
         })
