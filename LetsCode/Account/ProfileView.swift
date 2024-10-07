@@ -58,7 +58,7 @@ struct ProfileView: View {
                             
                             Text("Hi, " + user.name)
                                 .font(.largeTitle)
-                                .fontWeight(.semibold)
+                                .fontWeight(.bold)
                                 .frame(width: 415 ,alignment: .leading)
                                 .padding(.top, 40)
                                 .padding(.bottom, 50)

@@ -53,7 +53,7 @@ struct HomeView: View {
                         
                         Text("What do you want to do today?")
                             .padding(.leading)
-                            .frame(width: 430, alignment: .leading)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                                                 
                     }
                     
