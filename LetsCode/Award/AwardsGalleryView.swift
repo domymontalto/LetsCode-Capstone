@@ -27,7 +27,7 @@ struct AwardsGalleryView: View {
                     .padding(.top, 40)
                     .padding(.horizontal)
             }
-            .frame(width: 430, alignment: .leading)
+            .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.bottom, 50)
             .background(Color(red: 40/255.0, green: 143/255.0, blue: 181/255.0))
             
@@ -79,7 +79,7 @@ struct AwardsGalleryView: View {
         .onAppear(perform: {
             self.populateAwards()
         })
-        .padding(.horizontal)
+        //.padding(.horizontal)
     }
     
     func populateAwards() {

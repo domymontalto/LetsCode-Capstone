@@ -59,12 +59,12 @@ struct ProfileView: View {
                             Text("Hi, " + user.name)
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
-                                .frame(width: 415 ,alignment: .leading)
                                 .padding(.top, 40)
                                 .padding(.bottom, 50)
                                 .padding(.leading, 15)
                                 
                         }
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .background(Color(red: 40/255.0, green: 143/255.0, blue: 181/255.0))
                         .padding(.top, geometry.safeAreaInsets.top)
                         
