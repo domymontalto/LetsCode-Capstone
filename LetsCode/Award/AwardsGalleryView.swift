@@ -79,7 +79,6 @@ struct AwardsGalleryView: View {
         .onAppear(perform: {
             self.populateAwards()
         })
-        //.padding(.horizontal)
     }
     
     func populateAwards() {
